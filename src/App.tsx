@@ -1,15 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
+import ProductPage from "./components/pages/ProductPage";
+import HomePage from "./components/pages/HomePage";
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-
-        Hello  Edit <code>src/App.tsx</code> and sve to reload.
-
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/products" element={<ProductPage/>}  />
+        <Route path="/home" element={<HomePage/>}  />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
+
