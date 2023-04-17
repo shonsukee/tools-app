@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import { createMuiTheme } from "@material-ui/core/styles";
 import * as colors from "@material-ui/core/colors";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -168,20 +167,13 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
-        >
+        <AppBar position="absolute">
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}
             >
               <MenuIcon />
             </IconButton>
@@ -196,13 +188,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-        >
+        <Drawer variant="permanent" open={open}>
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
@@ -213,7 +199,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             <Link to="/home" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <HomeIcon />
+                  <HomeIcon color="primary" />
                 </ListItemIcon>
                 <ListItemText primary="トップページ" />
               </ListItem>
