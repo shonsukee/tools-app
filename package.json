@@ -52,6 +52,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
+    "@prisma/client": "^4.13.0",
+    "@types/react-router-dom": "^5.3.3",
+    "prisma": "^4.13.0"
   }
 }
