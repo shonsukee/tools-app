@@ -1,10 +1,9 @@
-export {};
 import { useState } from "react";
-import "./App.css";
+import "../../App.css";
 import { useForm } from "react-hook-form";
 import { validationSchema } from "./utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+//import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 interface LoginForm {
   name: string;
@@ -12,7 +11,7 @@ interface LoginForm {
   password: string;
 }
 
-function App() {
+const LoginPage = () => {
   const {
     register,
     handleSubmit,
@@ -39,13 +38,12 @@ function App() {
         <label htmlFor="password">password</label>
         <input id="password" type="password" {...register("password")} />
         <p>{errors.password?.message as React.ReactNode}</p>
-
         <button className="btn btn-primary" type="submit">
           送信
         </button>
       </form>
     </div>
   );
-}
+};
 
-export default App;
+export default LoginPage;
