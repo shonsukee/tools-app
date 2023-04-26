@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import { createTheme } from "@material-ui/core/styles";
 import * as colors from "@material-ui/core/colors";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -155,7 +156,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
   title,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -167,13 +168,20 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="absolute">
+        <AppBar
+          position="absolute"
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+        >
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
             >
               <MenuIcon />
             </IconButton>
@@ -188,7 +196,13 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
@@ -199,7 +213,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             <Link to="/home" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <HomeIcon color="primary" />
+                  <HomeIcon />
                 </ListItemIcon>
                 <ListItemText primary="トップページ" />
               </ListItem>
