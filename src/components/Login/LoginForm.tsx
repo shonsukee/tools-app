@@ -1,4 +1,4 @@
-import "../../App.css";
+import "./LoginForm.css";
 import { useForm } from "react-hook-form";
 import { validationSchema } from "./utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +34,7 @@ const LoginPage = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
+        localStorage.setItem("user_id",data.id)
       })
       .catch((error) => {
         console.error('Error:', error);

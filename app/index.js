@@ -2,7 +2,7 @@ var cors = require("cors");
 var express = require("express");
 var app = express();
 app.use(cors());
-// 
+
 app.use("/user/create", require("./user/CreateUser.js"))
 app.use("/user/delete", require("./user/DeleteUser.js"))
 app.use("/user/update", require("./user/UpdateUser.js"))

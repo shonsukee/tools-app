@@ -17,7 +17,6 @@ app.post("/", async (req, res) => {
             password: password,
           },
         });
-      
         return res.json(posts);
       });
 
