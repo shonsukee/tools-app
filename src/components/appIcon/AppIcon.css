@@ -1,0 +1,60 @@
+
+.Icon-frame{
+    height: 200px;
+    width: 50%;
+    position:absolute;
+    left: 50%;
+    transform: translate( -50%, 0px);
+}
+
+.App-title-frame{
+    height: 50px;
+    width: 80%;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translate( -50%, 0px);
+
+}
+
+
+.App-title{
+    text-align: center;
+    font-size: medium;
+}
+
+
+.App-text-frame{
+    height: 150px;
+    width: 80%;
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translate( -50%, 0px);
+}
+
+
+
+
+
+.App-frame  {
+    height: 400px;
+    width: 300px;
+    position: relative;
+/*     display: flex;
+*/  justify-content: space-around;
+    background: #eee; 
+    align-items: center;
+    /* margin: 0 auto;
+    padding: 10px 25px;
+     */
+    color: #313131;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+    filter: drop-shadow(0px 2px 4px #ccc);
+    border-radius: 3px;
+}
+.App-frame:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgb(0 0 0 / 15%), 0 0 5px rgb(0 0 0 / 10%);
+}

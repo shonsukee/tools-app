@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:8000/user/create",
+  "proxy": "http://localhost:8000",
   "name": "ToolAPPV2",
   "version": "0.1.0",
   "private": true,
@@ -25,6 +25,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.10.0",
     "react-scripts": "^5.0.1",
     "ts-node": "^10.9.1",
@@ -33,14 +35,11 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "prestart": "docker-compose up -d && forever start app/index.js",
+    "start": "react-scripts start  ",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev:build-server": "webpack --config webpack.server.js --mode=development -w",
-    "dev:start": "nodemon ",
-    "dev": "npm-run-all --parallel build dev:* ",
-    "develop": "NODE_OPTIONS='--openssl-legacy-provider' "
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

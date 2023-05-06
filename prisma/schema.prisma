@@ -16,3 +16,33 @@ model user {
   email        String           @unique
   password     String     
 }
+
+
+model ingredient {
+  id         Int      @id @default(autoincrement())
+  category  String
+  name         String
+  amount      Float
+}
+
+
+model cooking {
+  id         Int      @id @default(autoincrement())
+  cook_id   Int
+  ingredient_id   Int
+  amount    Float
+}
+
+
+model food {
+  id         Int      @id @default(autoincrement())
+  name         String
+  email        String           
+}
+
+
+model store {
+  id         Int      @id @default(autoincrement())
+  user_id   Int
+  ingredient_id   Int
+}

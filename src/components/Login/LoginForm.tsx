@@ -1,8 +1,9 @@
-import "./LoginForm.css";
+//import "./LoginForm.css";
 import { useForm } from "react-hook-form";
-import { validationSchema } from "./utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CreateUser from "../../api/postgre/user/CreateUser";
 //import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 
 interface LoginForm {
   name: string;
@@ -17,28 +18,13 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<LoginForm>({
     mode: "onChange",
-    resolver: zodResolver(validationSchema),
   });
 
   const onSubmit = async (data: LoginForm) => {
     console.log(data);
     //データベースサーバーのURL
-    fetch('http://localhost:8000/user/create', {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json',
-        'mode': 'no-cors',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        localStorage.setItem("user_id",data.id)
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    CreateUser(data);
+    
   };
 
   return (

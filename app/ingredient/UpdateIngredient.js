@@ -12,8 +12,8 @@ app.put("/:id", async (req, res) => {
     const id = req.params.id;
     const { name } = req.body; // postmanで挿入
   
-    //schema.prismaのPostsから取得
-    const updatedPosts = await prisma.user.update({
+    //schema.prismaのingredientから取得
+    const updatedIngredient = await prisma.ingredient.update({
       where: {
         id: Number(id),
       },
@@ -22,7 +22,7 @@ app.put("/:id", async (req, res) => {
       },
     });
   
-    return res.json(updatedPosts);
+    return res.json(updatedIngredient);
   });
 
 module.exports = app;
