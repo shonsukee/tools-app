@@ -37,7 +37,6 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "prestart": "forever start app/index.js",
     "start": "react-scripts start  ",
     "build": "react-scripts build",
     "test": "react-scripts test",
