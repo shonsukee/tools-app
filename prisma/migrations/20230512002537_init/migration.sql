@@ -19,6 +19,17 @@ CREATE TABLE "ingredient" (
 );
 
 -- CreateTable
+CREATE TABLE "inventory" (
+    "id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "category" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "amount" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "inventory_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "cooking" (
     "id" SERIAL NOT NULL,
     "cook_id" INTEGER NOT NULL,

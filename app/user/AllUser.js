@@ -10,8 +10,8 @@ app.use(express.json()); //送られてきたデータがjson形式と認識さ�
 
 // DBの全情報取得
 app.get("/", async (req, res) => {
-  const user = await prisma.user.findMany();
-  return res.json(user);
+    const user = await prisma.user.findMany();
+    return res.json(user);
 });
 
 module.exports = app;

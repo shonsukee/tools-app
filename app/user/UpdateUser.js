@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 app.use(express.json()); //送られてきたデータがjson形式と認識させる
 
 app.put("/:id", async (req, res) => {
+  try {
     const id = req.params.id;
     const { name } = req.body; // postmanで挿入
   
@@ -21,8 +22,10 @@ app.put("/:id", async (req, res) => {
         name: name,
       },
     });
-  
     return res.json(updatedPosts);
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
   });
 
 module.exports = app;

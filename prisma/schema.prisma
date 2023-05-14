@@ -26,6 +26,22 @@ model ingredient {
 }
 
 
+model inventory {
+  id         Int      @id @default(autoincrement())
+  user_id     Int
+  category  String
+  name         String
+  amount      Float
+}
+
+
+model shoplist{
+  id         Int      @id @default(autoincrement())
+  user_id     Int
+  inventory_id  Int
+}
+
+
 model cooking {
   id         Int      @id @default(autoincrement())
   cook_id   Int

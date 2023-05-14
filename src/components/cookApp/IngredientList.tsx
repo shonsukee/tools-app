@@ -12,7 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import GetsIngredient from "../../api/postgre/ingredient/GetsIngredient";
 import { ingredient } from "./types";
 import Modal from "react-modal";
-import CreateIngredientModal from "./CreateIngredientModal";
+import CreateIngredientModal from "./Modal/CreateIngredientModal";
 
 //Modal.setAppElement("#test");
 
@@ -58,13 +58,11 @@ const [checkedValues, setCheckedValues] = useState([null]);
 
 const handleChange = async(event) => {
   const { value } = event.target;
-  console.log('チェックされた値1:', event.target.checked);
   if (event.target.checked) {
     setCheckedValues([...checkedValues, value]);
   } else {
     setCheckedValues(checkedValues.filter((item) => item !== value));
   }
-  console.log('チェックされた値:', checkedValues);
 };
 
 const handleFormSubmit = () => {
@@ -78,7 +76,8 @@ const handleFormSubmit = () => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>食材名</TableCell>
+                <TableCell style={{ width: 50 }}>複数選択</TableCell>
+                <TableCell align="center">食材名</TableCell>
                 <TableCell align="center">カテゴリ名</TableCell>
                 <TableCell align="right">量(g)</TableCell>
               </TableRow>
@@ -86,10 +85,12 @@ const handleFormSubmit = () => {
             <TableBody>
               {ingredients.map((row) => (
                 <TableRow key={row.id}>
-                  <Checkbox 
-                  value={row.id} 
-                  onChange={handleChange}
-                  />
+                  <TableCell>
+                    <Checkbox 
+                      value={row.id} 
+                      onChange={handleChange}
+                    />
+                  </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="center">{row.category}</TableCell>
                   <TableCell align="right">{row.amount}</TableCell>
@@ -98,13 +99,12 @@ const handleFormSubmit = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <button onClick={handleFormSubmit}>Open Modal</button>
+        <button onClick={handleFormSubmit}>料理する</button>
         <div className="create-ingredient-modal">
 
-          <button onClick={() => setIsOpen(true)}>Open Modal</button>
+          <button onClick={() => setIsOpen(true)}>食材を追加する</button>
           <Modal isOpen={ modalIsOpen } style={ customStyles }>
             <CreateIngredientModal/>
-            <button onClick={() => setIsOpen(false)}>Open Modal</button>
           </Modal>
           
         </div>

@@ -1,33 +1,27 @@
-import CreateIngredient from "../../api/postgre/ingredient/CreateIngredient";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button , TextField} from '@material-ui/core'
 import { Box } from "@mui/material";
+import { inventory } from "../types";
+import CreateInventory from "../../../api/postgre/inventory/CreateInventory";
 
-type Ingredient = {
-    name: string;
-    category: string;
-    amount: number;
-  }
-  
 
-const CreateIngredientModal = () => {
+
+const CreateInventoryModal = () => {
 
   const {
     control,
     handleSubmit,
-  } = useForm<Ingredient>({
+  } = useForm<inventory>({
     mode: "onChange",
   });
 
-  const onSubmit = async (data: Ingredient) => {
-      console.log(typeof data.amount);
+  const onSubmit = async (data: inventory) => {
       //Int型に変換
-      
-      data.amount = Number(data.amount)
-      //要素を追加
-      console.log(typeof data.amount);
-      CreateIngredient(data);
+      data.user_id = Number(localStorage.getItem("user_id"));
+      data.amount = Number(data.amount);
+      console.log(data)
+      CreateInventory(data);
       
   };
 
@@ -57,7 +51,7 @@ const CreateIngredientModal = () => {
         fieldState: { invalid, isTouched, isDirty, error },
       }) => (
         <TextField
-          label="食材名"
+          label="名前"
           required
           variant="outlined"
           margin="dense"
@@ -109,7 +103,7 @@ const CreateIngredientModal = () => {
         fieldState: { invalid, isTouched, isDirty, error },
       }) => (
         <TextField
-          label="食材量"
+          label="量"
           required
           variant="outlined"
           margin="dense"
@@ -119,7 +113,6 @@ const CreateIngredientModal = () => {
         />
       )}
     />
-
     {/*/email, gender, subject, message は省略*/}
 
     <Button type="submit" color="primary" variant="contained" size="large">
@@ -129,7 +122,7 @@ const CreateIngredientModal = () => {
   );
 };
 
-export default CreateIngredientModal;
+export default CreateInventoryModal;
 
 /* 
 <label htmlFor="category">category</label>

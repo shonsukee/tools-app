@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 app.use(express.json()); //送られてきたデータがjson形式と認識させる
 
 app.delete("delete/:id", async (req, res) => {
+  try {
     const id = req.params.id; // /:idで指定したidをparamsの中から取得
     const deletedUser = await prisma.user.delete({
       where: {
@@ -16,6 +17,9 @@ app.delete("delete/:id", async (req, res) => {
       },
     });
     return res.json(deletedUser);
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
   });
 // 「/user/about」にマッチする場合の処理
 

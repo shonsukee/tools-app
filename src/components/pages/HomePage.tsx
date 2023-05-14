@@ -1,7 +1,7 @@
 import React from "react";
 import GenericTemplate from "../topsidebar/GenericTemplate1";
 import { Masonry } from '@mui/lab'
-import AppIcon from "../appIcon/AppIcon";
+import AppIcon from "./appIcon/AppIcon";
 
 
 const HomePage: React.FC = () => {

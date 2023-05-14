@@ -17,4 +17,9 @@ app.use("/ingredient/find", require("./ingredient/FindIngredient.js"))
 app.use("/ingredient/all", require("./ingredient/AllIngredient.js"))
 
 
+app.use("/inventory/all", require("./inventory/AllInventory.js"))
+app.use("/inventory/create", require("./inventory/CreateInventory.js"))
+app.use("/inventory/find", require("./inventory/FindInventory.js"))
+
+
 app.listen(8000);

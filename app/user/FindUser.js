@@ -9,14 +9,20 @@ const prisma = new PrismaClient();
 app.use(express.json()); //送られてきたデータがjson形式と認識させる
 
 // idを指定して情報取得
-app.get("/:id", async (req, res) => {
-    const id = req.params.id; // /:idで指定したidをparamsの中から取得
-    const post = await prisma.posts.findUnique({
+app.post("/", async (req, res) => {
+  //条件に合うデータをすべて見つける
+  try{
+    const { email } = req.body; 
+    console.log(email)
+    const post = await prisma.user.findUnique({
       where: {
-        id: Number(id), // id: 指定したid
-      },
-    });
-    return res.json(post);
+        email: email,
+      }});
+    return res.json(post); 
+    //条件に合うものがないとき
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
   });
   
 module.exports = app;
