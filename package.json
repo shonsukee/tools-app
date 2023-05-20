@@ -45,9 +45,7 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "start": "react-scripts start  ",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
