@@ -5,19 +5,21 @@ import ProductPage from "./components/pages/ProductPage";
 import HomePage from "./components/pages/HomePage";
 import SignUp from "./components/Login/SignUp";
 import IngredientListPage from "./components/cookApp/IngredientList";
-import SignIn from "./components/Login/SignIn"
+import SignIn from "./components/Login/SignIn";
 import InventoryListPage from "./components/inventory/InventoryList";
+import NewsPage from "./components/pages/NewsPage";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignIn/>} />
-        <Route path="/SignUp" element={<SignUp/>} />
-        <Route path="/products" element={<ProductPage/>}  />
-        <Route path="/home" element={<HomePage/>}  />
-        <Route path='/cookApp/home' element={<IngredientListPage/>} />
-        <Route path="/inventory" element={<InventoryListPage/>} />
+        <Route path="/" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/cookApp/home" element={<IngredientListPage />} />
+        <Route path="/inventory" element={<InventoryListPage />} />
+        <Route path="/news" element={<NewsPage />} />
       </Routes>
     </Router>
   );
