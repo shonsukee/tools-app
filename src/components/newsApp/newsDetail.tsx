@@ -35,18 +35,18 @@ const NewsDetail = ({
     if (message !== "") {
       fetchData();
     }
-    localStorage.setItem("variable", answer);
+    // localStorage.setItem("variable", answer);
   }, [message]);
 
   // ローカルストレージに保管したい
-  useEffect(() => {
-    if (typeof answer === "string") {
-      // 変数を読み込み
-      const savedVariable = localStorage.getItem("variable");
+  //   useEffect(() => {
+  //     if (typeof answer === "string") {
+  //       // 変数を読み込み
+  //       const savedVariable = localStorage.getItem("variable");
 
-      console.log(savedVariable);
-    }
-  }, [answer]);
+  //       console.log(savedVariable);
+  //     }
+  //   }, [answer]);
 
   // チャットフォームの表示
   return (
