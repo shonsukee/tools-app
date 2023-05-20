@@ -46,7 +46,6 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "build": " serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
