@@ -1,5 +1,5 @@
-const CreateInventory = (data) =>{
-    fetch('http://localhost:8000/inventory/create', {
+const AddCartMany = (data) =>{
+    fetch('http://localhost:8000/cart/add/many', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -17,4 +17,4 @@ const CreateInventory = (data) =>{
     );
 }
 
-export default CreateInventory;
+export default AddCartMany;

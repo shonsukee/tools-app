@@ -1,8 +1,8 @@
 import { inventory } from "../../../components/inventory/types";
 
-const GetsInventory = async ( data:any ): Promise<inventory[]> =>{
+const GetCartList = async ( data:any ): Promise<inventory[]> =>{
     let inventory = []
-    await fetch('http://localhost:8000/inventory/all', {
+    await fetch('http://localhost:8000/cart/all', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,4 +22,4 @@ const GetsInventory = async ( data:any ): Promise<inventory[]> =>{
   }
 
     
-    export default GetsInventory;
+    export default GetCartList;
