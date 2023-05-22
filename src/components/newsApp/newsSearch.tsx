@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { chat } from "../../api/gpt/chat"; // chat.js のインポート
 import styled from "styled-components";
