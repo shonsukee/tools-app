@@ -44,9 +44,9 @@ const NewsSearch = ({
   useEffect(() => {
     if (typeof answer === "string") {
       // 変数を読み込み
-      const savedVariable = localStorage.getItem("variable");
+      //   const savedVariable = localStorage.getItem("variable");
 
-      console.log(savedVariable);
+      //   console.log(savedVariable);
       if (answer !== "") {
         setLoad("");
       }
