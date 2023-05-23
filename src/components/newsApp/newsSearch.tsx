@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { TextField } from "@material-ui/core/";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea, Grid } from "@mui/material";
 
 interface Article {
   title: string;
@@ -14,6 +18,7 @@ const SearchTextField = ({ onSearch }) => {
   //   const [keyword, setKeyword] = useState("");
   const [articles, setArticles] = useState<Article[]>([]);
   const [load, setLoad] = useState("Loading...");
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     // テキスト取得
@@ -66,13 +71,17 @@ const SearchTextField = ({ onSearch }) => {
           })
           .catch((error) => {
             console.log(error);
-
             setArticles([errorArticle]);
           });
         onSearch(true);
       }
+      if (articles.length !== 0) {
+        setFlag(true);
+      } else {
+        setFlag(false);
+      }
     });
-  }, [onSearch]);
+  }, [articles.length, onSearch]);
 
   return (
     <>
@@ -83,63 +92,44 @@ const SearchTextField = ({ onSearch }) => {
         label="enter keywords"
         // onChange={(e) => setKeyword(e.target.value)}
       />
-      {articles.map((article, index) => (
-        <Link
-          to={`/news?url=${encodeURIComponent(
-            article.url
-          )}&title=${encodeURIComponent(
-            article.title
-          )}&urlToImage=${encodeURIComponent(article.urlToImage)}`}
-          key={index}
-        >
-          {load}
-          <Articles className="App-frame">
-            <Image
-              src={
-                article.urlToImage ||
-                "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
-              }
-              alt={article.title}
-            />
-            <Title>{article.title}</Title>
-          </Articles>
-        </Link>
-      ))}
+      {!flag && articles.map((article) => article.title)}
+      {flag && (
+        <Grid container rowSpacing={1} columnSpacing={{ sm: 2, md: 3, lg: 4 }}>
+          {articles.map((article, index) => (
+            <Grid item sm={12} md={6} lg={3} key={index}>
+              <Link
+                to={`/news?url=${encodeURIComponent(
+                  article.url
+                )}&title=${encodeURIComponent(
+                  article.title
+                )}&urlToImage=${encodeURIComponent(article.urlToImage)}`}
+              >
+                <p>{load}</p>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      src={
+                        article.urlToImage ||
+                        "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
+                      }
+                      alt={article.title}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {article.title}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </>
   );
 };
 
 export default SearchTextField;
-
-const Articles = styled.div`
-  padding: 10px;
-  color: black;
-  margin-bottom: 20px;
-  cursor: pointer;
-  box-sizing: border-box;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  @media (max-width: 768px) {
-    width: 48%;
-  }
-
-  @media (max-width: 992px) {
-    width: 31%;
-  }
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  margin-bottom: 10px;
-`;
-
-const Title = styled.h2`
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
