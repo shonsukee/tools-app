@@ -46,7 +46,7 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "start": "serve -s build"
+    "build": "serve -s build"
   },
   "eslintConfig": {
     "extends": [

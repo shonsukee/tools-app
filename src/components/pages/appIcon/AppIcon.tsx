@@ -1,5 +1,6 @@
 import "./AppIcon.css";
 import { MdFoodBank } from "react-icons/md";
+import { MdNewspaper } from "react-icons/md";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 
@@ -29,7 +30,7 @@ const AppIcon = () => {
         <div className="App-frame">
           <div className="Icon-frame">
             <IconContext.Provider value={{ size: "100%" }}>
-              <MdFoodBank />
+              <MdNewspaper />
             </IconContext.Provider>
           </div>
           <div className="App-title-frame">
@@ -37,9 +38,9 @@ const AppIcon = () => {
           </div>
           <div className="App-text-frame">
             <p className="App-text">
-              ・忙しい人向けのニュース
+              ・アメリカのニュース
               <br />
-              ・昨日のニュース
+              ・Chat GPTに要約
             </p>
           </div>
         </div>
