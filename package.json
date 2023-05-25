@@ -46,11 +46,7 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "prestart": "docker-compose up -d && forever start app/index.js",
-    "start": "react-scripts start  ",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
