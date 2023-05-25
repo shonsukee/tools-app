@@ -12,7 +12,7 @@ function NewsPage() {
   const { search } = location;
   const params = new URLSearchParams(search);
   const title = params.get("title") || "";
-  const urlToImage = params.get("urlToImage") || "";
+  const image = params.get("image") || "";
   const [searchResult, setSearchResult] = useState(null);
 
   const handleSearch = (result) => {
@@ -22,7 +22,7 @@ function NewsPage() {
   return (
     <GenericTemplate title="ニュースページ">
       {isDetailPage ? (
-        <NewsDetail title={title} urlToImage={urlToImage} />
+        <NewsDetail title={title} image={image} />
       ) : (
         <div>
           <NewsSearch onSearch={handleSearch} />

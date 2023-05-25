@@ -10,7 +10,7 @@ import "./news.css";
 
 interface Article {
   title: string;
-  urlToImage: string;
+  image: string;
   url: string;
 }
 
@@ -20,7 +20,9 @@ function NewsList() {
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_NEWS_API;
-    const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}&pageSize=5`;
+    // const apiUrl = `https://gnews.io/api/v4/search?q=Google&apiKey=${apiKey}`;
+    // const apikey = "8b05eaea8aa232f3a935cb58a28c44a3";
+    var apiUrl = `https://gnews.io/api/v4/search?q=google&lang=en&country=us&max=10&apikey=${apiKey}`;
 
     axios
       .get(apiUrl)
@@ -44,7 +46,7 @@ function NewsList() {
                 article.url
               )}&title=${encodeURIComponent(
                 article.title
-              )}&urlToImage=${encodeURIComponent(article.urlToImage)}`}
+              )}&image=${encodeURIComponent(article.image)}`}
               className="underline"
             >
               <p>{load}</p>
@@ -54,7 +56,7 @@ function NewsList() {
                     component="img"
                     height="140"
                     src={
-                      article.urlToImage ||
+                      article.image ||
                       "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
                     }
                     alt={article.title}

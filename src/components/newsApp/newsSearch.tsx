@@ -10,7 +10,7 @@ import { CardActionArea, Grid } from "@mui/material";
 
 interface Article {
   title: string;
-  urlToImage: string;
+  image: string;
   url: string;
 }
 
@@ -27,10 +27,11 @@ const SearchTextField = ({ onSearch }) => {
       if (event.key === "Enter") {
         const enteredText = input.value;
         const apiKey = process.env.REACT_APP_NEWS_API;
-        let apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey=${apiKey}&q=`;
+        let apiUrl = `https://gnews.io/api/v4/search?lang=en&country=us&max=10&apikey=${apiKey}&q=`;
+
         const errorArticle = {
           title: "No matching news",
-          urlToImage: "",
+          image: "",
           url: "",
         };
 
@@ -42,46 +43,39 @@ const SearchTextField = ({ onSearch }) => {
         //入力されたキーワードが空白のみの場合
         if (searchTexts === null) {
           setArticles([errorArticle]);
-        }
+        } else {
+          apiUrl += searchTexts;
+          axios
+            .get(apiUrl)
+            .then((response) => {
+              const articles = response.data.articles; // レスポンスから記事データを取得
+              // レスポンスが配列であることを確認してから処理を行う
+              if (Array.isArray(articles)) {
+                setArticles(articles);
+              } else {
+                setArticles([errorArticle]);
+              }
+            })
 
-        apiUrl += searchTexts;
-        axios
-          .get(apiUrl)
-          .then((response) => {
-            const articles = response.data.articles; // レスポンスから記事データを取得
-
-            // レスポンスが配列であることを確認してから処理を行う
-            if (Array.isArray(articles)) {
-              const formattedArticles = articles.map((article) => {
-                return {
-                  title: article.title,
-                  urlToImage: article.urlToImage,
-                  url: article.url,
-                };
-              });
-
-              setArticles(formattedArticles);
-            } else {
+            .then(() => {
+              setLoad("");
+            })
+            .catch((error) => {
+              console.log(error);
               setArticles([errorArticle]);
-            }
-          })
-
-          .then(() => {
-            setLoad("");
-          })
-          .catch((error) => {
-            console.log(error);
-            setArticles([errorArticle]);
-          });
-        onSearch(true);
-      }
-      if (articles.length !== 0) {
-        setFlag(true);
-      } else {
-        setFlag(false);
+            });
+          onSearch(true);
+        }
+        console.log(articles.length);
+        if (articles.length !== 0) {
+          setFlag(true);
+        } else {
+          setFlag(false);
+        }
       }
     });
-  }, [articles.length, onSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -92,7 +86,7 @@ const SearchTextField = ({ onSearch }) => {
         label="enter keywords"
         // onChange={(e) => setKeyword(e.target.value)}
       />
-      {!flag && articles.map((article) => article.title)}
+      <div>{!flag && articles.map((article) => article.title)}</div>
       {flag && (
         <Grid container rowSpacing={1} columnSpacing={{ sm: 2, md: 3, lg: 4 }}>
           {articles.map((article, index) => (
@@ -102,7 +96,7 @@ const SearchTextField = ({ onSearch }) => {
                   article.url
                 )}&title=${encodeURIComponent(
                   article.title
-                )}&urlToImage=${encodeURIComponent(article.urlToImage)}`}
+                )}&image=${encodeURIComponent(article.image)}`}
               >
                 <p>{load}</p>
                 <Card sx={{ maxWidth: 345 }}>
@@ -111,7 +105,7 @@ const SearchTextField = ({ onSearch }) => {
                       component="img"
                       height="140"
                       src={
-                        article.urlToImage ||
+                        article.image ||
                         "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
                       }
                       alt={article.title}
