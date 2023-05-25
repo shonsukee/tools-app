@@ -20,9 +20,7 @@ function NewsList() {
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_NEWS_API;
-    // const apiUrl = `https://gnews.io/api/v4/search?q=Google&apiKey=${apiKey}`;
-    // const apikey = "8b05eaea8aa232f3a935cb58a28c44a3";
-    var apiUrl = `https://gnews.io/api/v4/search?q=google&lang=en&country=us&max=10&apikey=${apiKey}`;
+    var apiUrl = `https://gnews.io/api/v4/search?q=major+league+baseball&lang=us&max=10&apikey=${apiKey}`;
 
     axios
       .get(apiUrl)
