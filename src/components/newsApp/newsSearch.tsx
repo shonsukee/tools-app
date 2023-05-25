@@ -52,6 +52,7 @@ const SearchTextField = ({ onSearch }) => {
               // レスポンスが配列であることを確認してから処理を行う
               if (Array.isArray(articles)) {
                 setArticles(articles);
+                setFlag(true);
               } else {
                 setArticles([errorArticle]);
               }
