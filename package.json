@@ -43,7 +43,7 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "start": "serve -s build"
+    "start": "node app/index.js"
   },
   "eslintConfig": {
     "extends": [
