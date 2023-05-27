@@ -18,7 +18,6 @@ app.post("/", async (req, res) => {
         password: password,
       },
     });
-    console.log("a");
     return res.json(posts);
   } catch (err) {
     res.status(500).send("Internal Server Error");
