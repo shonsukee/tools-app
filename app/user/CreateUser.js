@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 app.use(express.json()); //送られてきたデータがjson形式と認識させる
 app.post("/", async (req, res) => {
-  try{
+  try {
     const { name, email, password } = req.body; // postmanで挿入
     //schema.prismaのPostsから取得
     const posts = await prisma.user.create({
@@ -20,12 +20,10 @@ app.post("/", async (req, res) => {
     });
     return res.json(posts);
   } catch (err) {
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
-
 
 // 「/user/about」にマッチする場合の処理
 
 module.exports = app;
-

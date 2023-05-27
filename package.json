@@ -1,5 +1,4 @@
 {
-  "proxy": "http://localhost:8000",
   "name": "toolappv2",
   "version": "0.1.0",
   "private": true,
@@ -38,15 +37,13 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "^5.0.1",
     "serve": "^14.2.0",
-    "stream-browserify": "^3.0.0",
-    "styled-components": "^6.0.0-rc.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
     "web-vitals": "^2.1.4",
     "zod": "^3.21.4"
   },
   "scripts": {
-    "start": "serve -s build"
+    "start": "serve -s build && node app/index.js"
   },
   "eslintConfig": {
     "extends": [
