@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const AppIcon = () =>{
     return(       
-        <Link to={'/cookApp/home'}>
+        <Link to={'/cookapp'}>
             <div className="App-frame">
                 <div className="Icon-frame">
                     <IconContext.Provider value={{size:"100%"}}>

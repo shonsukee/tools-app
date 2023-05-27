@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button , TextField} from '@material-ui/core'
 import { Box } from "@mui/material";
 import { inventory } from "../types";
-import CreateInventory from "../../../api/postgre/inventory/CreateInventory";
+import CreateInventory from "../../../api/postgre/inventory/GetsInventory";
 
 
 
@@ -18,9 +18,9 @@ const CreateInventoryModal = () => {
 
   const onSubmit = async (data: inventory) => {
       //Int型に変換
-      data.user_id = Number(localStorage.getItem("user_id"));
+/*       data.user_id = Number(localStorage.getItem("user_id"));
       data.amount = Number(data.amount);
-      console.log(data)
+      console.log(data) */
       CreateInventory(data);
       
   };
@@ -78,32 +78,6 @@ const CreateInventoryModal = () => {
       }) => (
         <TextField
           label="カテゴリ名"
-          required
-          variant="outlined"
-          margin="dense"
-          onChange={onChange}
-          error={Boolean(error)}
-          helperText={error?.message}
-        />
-      )}
-    />
-    
-    <Controller
-      name="amount"
-      control={control}
-      rules={{
-        required: "入力必須ですよ！",
-        maxLength: {
-          value: 30,
-          message: "30文字以下で入力してくださいね！",
-        },
-      }}
-      render={({
-        field: { onChange, onBlur, value, name, ref },
-        fieldState: { invalid, isTouched, isDirty, error },
-      }) => (
-        <TextField
-          label="量"
           required
           variant="outlined"
           margin="dense"

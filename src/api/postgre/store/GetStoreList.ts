@@ -2,7 +2,7 @@ import { inventory } from "../../../components/inventory/types";
 
 const GetsInventory = async ( data:any ): Promise<inventory[]> =>{
     let inventory = []
-    await fetch('http://localhost:8000/inventory/all', {
+    await fetch('http://localhost:8000/store/all', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
