@@ -3,13 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import { chat } from "../../api/gpt/chat"; // chat.js のインポート
 import styled from "styled-components";
 
-const NewsSearch = ({
-  title,
-  urlToImage,
-}: {
-  title: string;
-  urlToImage: string;
-}) => {
+const NewsSearch = ({ title, image }: { title: string; image: string }) => {
   //エンドポイントからurl取得
   const location = useLocation();
   const { search } = location;
@@ -44,9 +38,9 @@ const NewsSearch = ({
   useEffect(() => {
     if (typeof answer === "string") {
       // 変数を読み込み
-      const savedVariable = localStorage.getItem("variable");
+      //   const savedVariable = localStorage.getItem("variable");
 
-      console.log(savedVariable);
+      //   console.log(savedVariable);
       if (answer !== "") {
         setLoad("");
       }
@@ -56,7 +50,7 @@ const NewsSearch = ({
   // チャットフォームの表示
   return (
     <div>
-      <Image src={urlToImage} alt={title} />
+      <Image src={image} alt={title} />
       <h1>{title}</h1>
       <Link to={`${articleUrl}`} target="_blank" rel="noreferrer noopener">
         <Move>記事に移動</Move>
