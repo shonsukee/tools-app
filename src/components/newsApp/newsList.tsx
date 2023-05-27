@@ -11,19 +11,26 @@ interface Article {
 
 function NewsList() {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [load, setLoad] = useState("Loading...");
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_NEWS_API;
     const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}&pageSize=5`;
 
-    axios.get(apiUrl).then((response) => {
-      setArticles(response.data.articles);
-      console.log(response.data.articles);
-    });
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setArticles(response.data.articles);
+        console.log(response.data.articles);
+      })
+      .then(() => {
+        setLoad("");
+      });
   }, []);
 
   return (
     <Container>
+      <p>{load}</p>
       {articles.map((article, index) => (
         <Link
           to={`/news?url=${encodeURIComponent(

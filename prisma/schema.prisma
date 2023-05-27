@@ -18,47 +18,33 @@ model user {
 }
 
 
-model ingredient {
-  id         Int      @id @default(autoincrement())
-  category  String
-  name         String
-  amount      Float
-}
-
-
 model inventory {
   id         Int      @id @default(autoincrement())
-  user_id     Int
-  category  String
   name         String
-  amount      Float
+  category  String
 }
 
 
-model shoplist{
+model cart {
   id         Int      @id @default(autoincrement())
   user_id     Int
   inventory_id  Int
-}
-
-
-model cooking {
-  id         Int      @id @default(autoincrement())
-  cook_id   Int
-  ingredient_id   Int
-  amount    Float
-}
-
-
-model food {
-  id         Int      @id @default(autoincrement())
-  name         String
-  email        String           
+  amount Int
+  memo  String
+  type  Boolean
+  create_date DateTime?  
 }
 
 
 model store {
   id         Int      @id @default(autoincrement())
-  user_id   Int
-  ingredient_id   Int
+  user_id    Int
+  inventory_id   Int
+  amount  Int
+  create_date  DateTime   @default(now())
+  end_date  DateTime   @default(now())
 }
+
+
+
+

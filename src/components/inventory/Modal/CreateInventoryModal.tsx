@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, TextField } from "@material-ui/core";
 import { Box } from "@mui/material";
 import { inventory } from "../types";
-import CreateInventory from "../../../api/postgre/inventory/CreateInventory";
+import CreateInventory from "../../../api/postgre/inventory/GetsInventory";
 
 const CreateInventoryModal = () => {
   const { control, handleSubmit } = useForm<inventory>({
@@ -11,9 +11,9 @@ const CreateInventoryModal = () => {
 
   const onSubmit = async (data: inventory) => {
     //Int型に変換
-    data.user_id = Number(localStorage.getItem("user_id"));
-    data.amount = Number(data.amount);
-    console.log(data);
+    /*       data.user_id = Number(localStorage.getItem("user_id"));
+      data.amount = Number(data.amount);
+      console.log(data) */
     CreateInventory(data);
   };
 
@@ -78,9 +78,37 @@ const CreateInventoryModal = () => {
           />
         )}
       />
+      {/*/email, gender, subject, message は省略*/}
 
       <Controller
-        name="amount"
+        name="category"
+        control={control}
+        rules={{
+          required: "入力必須ですよ！",
+          maxLength: {
+            value: 30,
+            message: "30文字以下で入力してくださいね！",
+          },
+        }}
+        render={({
+          field: { onChange, onBlur, value, name, ref },
+          fieldState: { invalid, isTouched, isDirty, error },
+        }) => (
+          <TextField
+            label="カテゴリ名"
+            required
+            variant="outlined"
+            margin="dense"
+            onChange={onChange}
+            error={Boolean(error)}
+            helperText={error?.message}
+          />
+        )}
+      />
+
+      <Controller
+        // name="amount"要相談
+        name="category"
         control={control}
         rules={{
           required: "入力必須ですよ！",

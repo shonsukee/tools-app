@@ -8,6 +8,7 @@ import IngredientListPage from "./components/cookApp/IngredientList";
 import SignIn from "./components/Login/SignIn";
 import InventoryListPage from "./components/inventory/InventoryList";
 import NewsPage from "./components/pages/NewsPage";
+import CartListPage from "./components/cartApp/CartList";
 
 const App: React.FC = () => {
   return (
@@ -17,8 +18,9 @@ const App: React.FC = () => {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/cookApp/home" element={<IngredientListPage />} />
+        <Route path="/cookapp" element={<IngredientListPage />} />
         <Route path="/inventory" element={<InventoryListPage />} />
+        <Route path="/cart" element={<CartListPage />} />
         <Route path="/news" element={<NewsPage />} />
       </Routes>
     </Router>
