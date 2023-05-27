@@ -67,7 +67,7 @@
     "@babel/core": "7.10.4",
     "@babel/preset-env": "7.10.4",
     "@babel/preset-react": "7.10.4",
-    "@prisma/client": "^4.13.0",
+    "@prisma/client": "^4.14.1",
     "@types/react-router-dom": "^5.3.3",
     "babel-loader": "8.1.0",
     "nodemon": "^2.0.4",
