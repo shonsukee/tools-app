@@ -1,6 +1,8 @@
 .Icon-frame {
   height: 200px;
   width: 50%;
+  display: flex;
+  align-items: center;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0px);
@@ -17,7 +19,7 @@
 
 .App-title {
   text-align: center;
-  font-size: medium;
+  font-size: large;
 }
 
 .App-text-frame {
@@ -31,12 +33,11 @@
 
 .App-frame {
   height: 400px;
-  width: 300px;
+  width: 240px;
   position: relative;
-  justify-content: space-around;
+  display: inline-block;
   background: #eee;
-  align-items: center;
-  margin: 0 20px;
+  margin: 20px;
 
   color: #313131;
   transition: 0.3s ease-in-out;

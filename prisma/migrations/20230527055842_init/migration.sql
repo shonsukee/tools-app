@@ -42,5 +42,35 @@ CREATE TABLE "store" (
     CONSTRAINT "store_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "tool" (
+    "id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
+    "detail" TEXT NOT NULL,
+    "url" TEXT NOT NULL,
+
+    CONSTRAINT "tool_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "reference" (
+    "id" SERIAL NOT NULL,
+    "tool_id" INTEGER NOT NULL,
+    "group_id" INTEGER NOT NULL,
+
+    CONSTRAINT "reference_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "group" (
+    "id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "group_name" TEXT NOT NULL,
+
+    CONSTRAINT "group_pkey" PRIMARY KEY ("id")
+);
+
+
 -- CreateIndex
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");

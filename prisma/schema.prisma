@@ -45,6 +45,22 @@ model store {
   end_date  DateTime   @default(now())
 }
 
+model tool {
+  id         Int      @id @default(autoincrement())
+  user_id         Int
+  title         String
+  detail  String
+  url String
+}
 
+model reference {
+  id         Int      @id @default(autoincrement())
+  tool_id  Int
+  group_id Int
+}
 
-
+model group {
+  id         Int      @id @default(autoincrement())
+  user_id         Int
+  group_name String
+}

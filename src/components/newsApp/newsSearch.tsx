@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField } from "@material-ui/core/";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 interface Article {
   title: string;
@@ -27,7 +23,7 @@ const SearchTextField = ({ onSearch }) => {
       if (event.key === "Enter") {
         const enteredText = input.value;
         const apiKey = process.env.REACT_APP_NEWS_API;
-        let apiUrl = `https://gnews.io/api/v4/search?lang=en&country=us&max=10&apikey=${apiKey}&q=`;
+        let apiUrl = `https://gnews.io/api/v4/search?lang=ja&country=ja&max=8&apikey=${apiKey}&q=`;
 
         const errorArticle = {
           title: "No matching news",
@@ -38,6 +34,7 @@ const SearchTextField = ({ onSearch }) => {
         const searchTexts = enteredText
           .trim()
           .toLowerCase()
+          .replace(/\s+/g, "+")
           .match(/[^\s]+/g);
 
         //入力されたキーワードが空白のみの場合
@@ -68,6 +65,7 @@ const SearchTextField = ({ onSearch }) => {
           onSearch(true);
         }
         console.log(articles.length);
+        console.log(articles);
         if (articles.length !== 0) {
           setFlag(true);
         } else {
@@ -100,24 +98,23 @@ const SearchTextField = ({ onSearch }) => {
                 )}&image=${encodeURIComponent(article.image)}`}
               >
                 <p>{load}</p>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="140"
+                <div className="App-frame">
+                  <div className="img-size">
+                    <img
+                      width="100%"
+                      height="170px"
+                      object-fit="cover"
                       src={
                         article.image ||
                         "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
                       }
                       alt={article.title}
                     />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {article.title}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
+                  </div>
+                  <div className="App-title-frame">
+                    <p className="App-title">{article.title}</p>
+                  </div>
+                </div>
               </Link>
             </Grid>
           ))}

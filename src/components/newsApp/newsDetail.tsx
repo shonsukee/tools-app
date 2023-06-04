@@ -71,7 +71,7 @@ export default NewsSearch;
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `;
 
 const Move = styled.div`

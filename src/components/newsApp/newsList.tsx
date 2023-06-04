@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import "./news.css";
 
 interface Article {
@@ -20,7 +16,7 @@ function NewsList() {
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_NEWS_API;
-    var apiUrl = `https://gnews.io/api/v4/search?q=話題の記事&lang=ja&max=4&apikey=${apiKey}`;
+    var apiUrl = `https://gnews.io/api/v4/search?q=google&lang=ja&max=8&apikey=${apiKey}`;
 
     axios
       .get(apiUrl)
@@ -48,24 +44,21 @@ function NewsList() {
               className="underline"
             >
               <p>{load}</p>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    src={
-                      article.image ||
-                      "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
-                    }
-                    alt={article.title}
-                  />
-                  <CardContent className="box">
-                    <Typography gutterBottom variant="h5" component="div">
-                      {article.title}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+              <div className="App-frame">
+                <img
+                  width="100%"
+                  height="170px"
+                  object-fit="cover"
+                  src={
+                    article.image ||
+                    "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
+                  }
+                  alt={article.title}
+                />
+                <div className="App-title-frame">
+                  <p className="App-title">{article.title}</p>
+                </div>
+              </div>
             </Link>
           </Grid>
         ))}
