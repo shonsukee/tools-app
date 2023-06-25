@@ -1,7 +1,7 @@
 const GetNews = async (data) => {
   let news = [];
 
-  await fetch("http://localhost:8000/news/get", {
+  await fetch("https://toolapp-back.herokuapp.com/news/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

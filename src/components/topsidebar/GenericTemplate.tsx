@@ -17,9 +17,7 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
-import HomeIcon from "@material-ui/icons/Home";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -245,17 +243,9 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
             <Link to="/home" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <HomeIcon />
+                  <BookmarkIcon />
                 </ListItemIcon>
-                <ListItemText primary="お気に入り" />
-              </ListItem>
-            </Link>
-            <Link to="/products" className={classes.link}>
-              <ListItem button>
-                <ListItemIcon>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="商品ページ" />
+                <ListItemText primary="Bookmark" />
               </ListItem>
             </Link>
             <Link to="/news" className={classes.link}>
@@ -263,7 +253,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <NewspaperIcon />
                 </ListItemIcon>
-                <ListItemText primary="ニュース" />
+                <ListItemText primary="News" />
               </ListItem>
             </Link>
           </List>

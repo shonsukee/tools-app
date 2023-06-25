@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@material-ui/core/";
-import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import GetNews from "../../api/news/GetNews";
+import { motion } from "framer-motion";
+import clsx from "clsx";
+import { IconContext } from "react-icons";
 
 interface Article {
   title: string;
@@ -10,11 +12,24 @@ interface Article {
   url: string;
 }
 
+// スマホの時はBottomNavi
+const useWindowSize = (): boolean => {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const updateSize = (): void => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", updateSize);
+    updateSize();
+  }, []);
+
+  return size[0] <= 500;
+};
+
 const SearchTextField = ({ onSearch }) => {
-  //   const [keyword, setKeyword] = useState("");
   const [articles, setArticles] = useState<Article[]>([]);
-  const [load, setLoad] = useState("Loading...");
   const [flag, setFlag] = useState(false);
+  const isPhone = useWindowSize();
 
   useEffect(() => {
     // テキスト取得
@@ -40,15 +55,11 @@ const SearchTextField = ({ onSearch }) => {
         } else {
           (async function () {
             const news = await GetNews({
-              query: "google",
+              query: searchTexts,
             });
             setArticles(news);
-            console.log(news);
-            setLoad("");
             setFlag(true);
           })();
-          console.log(articles.length);
-          console.log(articles);
           if (articles.length !== 0) {
             setFlag(true);
           } else {
@@ -73,32 +84,37 @@ const SearchTextField = ({ onSearch }) => {
         <Grid container rowSpacing={1} columnSpacing={{ sm: 2, md: 3, lg: 4 }}>
           {articles.map((article, index) => (
             <Grid item sm={12} md={6} lg={3} key={index}>
-              <Link
-                to={`/news?url=${encodeURIComponent(
-                  article.url
-                )}&title=${encodeURIComponent(
-                  article.title
-                )}&image=${encodeURIComponent(article.image)}`}
+              <motion.div
+                className={clsx(isPhone && "App-Phone", "App-frame")}
+                whileHover={{ scale: [null, 1.13, 1.03] }}
+                transition={{ duration: 0.23 }}
               >
-                <p>{load}</p>
-                <div className="App-frame">
-                  <div className="img-size">
-                    <img
-                      width="100%"
-                      height="170px"
-                      object-fit="cover"
-                      src={
-                        article.image ||
-                        "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
-                      }
-                      alt={article.title}
-                    />
+                <a
+                  href={`/news?url=${encodeURIComponent(
+                    article.url
+                  )}&title=${encodeURIComponent(
+                    article.title
+                  )}&image=${encodeURIComponent(article.image)}`}
+                >
+                  <div className="Icon-frame">
+                    <IconContext.Provider value={{ size: "100%" }}>
+                      <img
+                        margin-top="50px"
+                        width="100%"
+                        object-fit="cover"
+                        src={
+                          article.image ||
+                          "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
+                        }
+                        alt={article.title}
+                      />
+                    </IconContext.Provider>
                   </div>
                   <div className="App-title-frame">
                     <p className="App-title">{article.title}</p>
                   </div>
-                </div>
-              </Link>
+                </a>
+              </motion.div>
             </Grid>
           ))}
         </Grid>

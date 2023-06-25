@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import ProductPage from "./components/pages/ProductPage";
 import HomePage from "./components/pages/HomePage";
 import SignUp from "./components/Login/SignUp";
 import SignIn from "./components/Login/SignIn";
@@ -13,7 +12,6 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/products" element={<ProductPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/news" element={<NewsPage />} />
       </Routes>

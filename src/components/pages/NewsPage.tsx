@@ -14,31 +14,35 @@ function NewsPage() {
   const title = params.get("title") || "";
   const image = params.get("image") || "";
   const [searchResult, setSearchResult] = useState(null);
+  const [isSearch, setIsSearch] = useState(false);
 
   const handleSearch = (result) => {
     setSearchResult(result);
+    setIsSearch(true);
+    console.log(isSearch);
   };
 
   return (
-    <GenericTemplate title="ニュースページ">
+    <GenericTemplate title="News">
       {isDetailPage ? (
         <NewsDetail title={title} image={image} />
       ) : (
         <div>
           <NewsSearch onSearch={handleSearch} />
-          {searchResult ? (
-            <Bars
-              height="80"
-              width="80"
-              color="#"
-              ariaLabel="bars-loading"
-              wrapperStyle={{}}
-              wrapperClass="#C0C0C0"
-              visible={true}
-            />
-          ) : (
-            <NewsList />
-          )}
+          {isSearch ? (
+            searchResult ? (
+              <Bars
+                height="80"
+                width="80"
+                color="#"
+                ariaLabel="bars-loading"
+                wrapperClass="#C0C0C0"
+                visible={true}
+              />
+            ) : (
+              <NewsList />
+            )
+          ) : null}
         </div>
       )}
     </GenericTemplate>

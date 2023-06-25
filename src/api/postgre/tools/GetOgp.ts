@@ -1,7 +1,7 @@
 const GetOgp = async (data) => {
   let ogp = [];
 
-  await fetch("http://localhost:8000/home/ogp/get", {
+  await fetch("https://toolapp-back.herokuapp.com/home/ogp/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

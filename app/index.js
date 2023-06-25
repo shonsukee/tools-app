@@ -22,6 +22,4 @@ app.use("/home/ref/create", require("./tool/CreateReference.js"));
 
 app.use("/news/get", require("./news/GetNews.js"));
 
-app.listen(8000, () => {
-  console.log("server is now listening htttp://localhost:8000");
-});
+app.listen(8000);

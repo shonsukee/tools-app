@@ -2,7 +2,7 @@ const GetGroup = async (data) => {
   let reference = [];
 
   console.log(data);
-  await fetch("http://localhost:8000/home/ref/create", {
+  await fetch("https://toolapp-back.herokuapp.com/home/ref/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

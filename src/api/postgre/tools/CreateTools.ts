@@ -1,5 +1,5 @@
 const CreateTools = (data) => {
-  fetch("http://localhost:8000/home/tool/create", {
+  fetch("https://toolapp-back.herokuapp.com/home/tool/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

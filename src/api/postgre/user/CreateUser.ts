@@ -1,5 +1,5 @@
 const CreateUser = (data) => {
-  fetch("http://localhost:8000/user/create", {
+  fetch("https://toolapp-back.herokuapp.com/user/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
