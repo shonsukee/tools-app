@@ -42,6 +42,7 @@ app.post("/", async (req, res) => {
           title: true, // 取得するフィールドを指定
           detail: true,
           url: true,
+          ogp: true,
         },
       });
     }

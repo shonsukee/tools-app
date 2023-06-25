@@ -51,6 +51,7 @@ model tool {
   title         String
   detail  String
   url String
+  ogp String
 }
 
 model reference {

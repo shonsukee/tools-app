@@ -1,13 +1,13 @@
-.navigate-area{
-    height: 15%;
-    width: 100%;
-    display: flex;
+.navigate-area {
+  height: 15%;
+  width: 100%;
+  display: flex;
 }
 
-.navigate-before{
-    width: 20%;
+.navigate-before {
+  width: 20%;
 }
 
-.navigate-next{
-    width: 20%;
+.navigate-next {
+  width: 20%;
 }

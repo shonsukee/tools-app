@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import CreateTools from "../../api/postgre/tools/CreateTools";
 import { validation } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import GetOgp from "../../api/postgre/tools/GetOgp";
 
 type Tools = {
   title: string;
@@ -17,20 +18,41 @@ const ToolsList = () => {
     resolver: zodResolver(validation),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
+    let ogps;
+    const extensions = [".com", ".net", ".org", ".jp"];
+    let domainIndex = -1;
+    let dot = 3;
+    for (let ext of extensions) {
+      let index = data.url.indexOf(ext);
+      if (index !== -1) {
+        domainIndex = index;
+        if (ext !== ".jp") dot = 4;
+        break;
+      }
+    }
+    const ogpUrl = data.url.slice(0, domainIndex + dot);
+    const getOgps = await GetOgp({ url: ogpUrl });
+    // OGPがないとき
+    if (getOgps.length === 0) {
+      ogps =
+        "https://3.bp.blogspot.com/-Uzi2iyvRCBM/W8BOOLU6wsI/AAAAAAABPW8/tud6RvPUYfwvyVSyFa8N5idm6890Npw-ACLcBGAs/s800/computer_bar5_load.png";
+      //OGPがあるとき
+    } else {
+      ogps = getOgps;
+    }
     CreateTools({
       user_id: Number(localStorage.getItem("user_id")),
       title: data.title,
       detail: data.detail,
       url: data.url,
+      ogp: ogps,
     });
     window.location.href = "/home";
   };
-
   return (
     <Box
       component="form"
-      padding="30px"
       bgcolor="#fff"
       display="flex"
       flexDirection="column"
@@ -65,7 +87,7 @@ const ToolsList = () => {
         }) => (
           <TextField
             label="詳細"
-            required
+            multiline
             variant="outlined"
             margin="dense"
             onChange={onChange}

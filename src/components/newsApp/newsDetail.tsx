@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { chat } from "../../api/gpt/chat"; // chat.js のインポート
+import { chat } from "../../api/gpt/chat";
 import styled from "styled-components";
+import { Bars } from "react-loader-spinner";
 
 const NewsSearch = ({ title, image }: { title: string; image: string }) => {
   //エンドポイントからurl取得
@@ -12,38 +13,40 @@ const NewsSearch = ({ title, image }: { title: string; image: string }) => {
 
   const [message, setMessage] = useState(""); // メッセージの状態管理用
   const [answer, setAnswer] = useState(""); // 回答の状態管理用
-  const [load, setLoad] = useState("Loading...");
+  const [load, setLoad] = useState(false);
 
-  // 「質問」ボタンを押したときの処理
+  // ニュースを要約するプロンプトを送信
   useEffect(() => {
     (async function () {
-      setMessage(`「${articleUrl}」このURLの本文を要約して`);
+      setMessage(`「${articleUrl}」このURLのほんぶんをようやくして`);
     })();
-  }, [articleUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  // メッセージがセットされたらChatGPTに投げる
   useEffect(() => {
     const fetchData = async () => {
       const data = await chat(message);
       setAnswer(data);
+      localStorage.setItem("sentence" + title, data);
     };
 
     if (message !== "") {
       fetchData();
-    }
-    localStorage.setItem("variable", answer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message]);
-
-  // ローカルストレージに保管したい
-  useEffect(() => {
-    if (typeof answer === "string") {
-      // 変数を読み込み
-      //   const savedVariable = localStorage.getItem("variable");
-
-      //   console.log(savedVariable);
-      if (answer !== "") {
-        setLoad("");
+    } else {
+      if (localStorage.getItem("sentence" + title) !== null) {
+        const storedSentence = localStorage.getItem("sentence" + title);
+        if (storedSentence !== null) {
+          setAnswer(storedSentence);
+        }
       }
+    }
+  }, [message, title]);
+
+  // an
+  useEffect(() => {
+    if (answer !== "") {
+      setLoad(true);
     }
   }, [answer]);
 
@@ -55,11 +58,28 @@ const NewsSearch = ({ title, image }: { title: string; image: string }) => {
       <Link to={`${articleUrl}`} target="_blank" rel="noreferrer noopener">
         <Move>記事に移動</Move>
       </Link>
-      <p>{load}</p>
-      {answer && (
+
+      {load ? (
+        <Loading>
+          <Bars
+            height="80"
+            width="80"
+            color="#"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass="#C0C0C0"
+            visible={true}
+          />
+          <p>要約中</p>
+        </Loading>
+      ) : (
         <div>
-          <h2>要約:</h2>
-          <p>{answer}</p>
+          {answer && (
+            <div>
+              <h2>要約:</h2>
+              <p>{answer}</p>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -77,4 +97,11 @@ const Image = styled.img`
 const Move = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+const Loading = styled.div`
+  display: flex;
+  opacity: 0.2;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

@@ -10,6 +10,7 @@ const CreateUser = (data) => {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
+      localStorage.setItem("user_id", data.id);
     })
     .catch((error) => {
       console.error("Error:", error);

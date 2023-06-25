@@ -9,14 +9,17 @@ const prisma = new PrismaClient();
 app.use(express.json()); //送られてきたデータがjson形式と認識させる
 app.post("/", async (req, res) => {
   try {
-    const { user_id, title, detail, url } = req.body; // postmanで挿入
+    const { user_id, title, detail, url, ogp } = req.body; // postmanで挿入
     //schema.prismaのPostsから取得
+    console.log(ogp);
+    console.log(typeof ogp);
     const tool = await prisma.tool.create({
       data: {
         user_id: user_id,
         title: title,
         detail: detail,
         url: url,
+        ogp: ogp,
       },
     });
     return res.json(tool);

@@ -17,5 +17,11 @@ app.use("/home/tool/get", require("./tool/GetTool.js"));
 app.use("/home/tool/select", require("./tool/SelectTool.js"));
 app.use("/home/group/create", require("./tool/CreateGroup.js"));
 app.use("/home/group/get", require("./tool/GetGroup.js"));
+app.use("/home/ogp/get", require("./tool/GetOgp.js"));
+app.use("/home/ref/create", require("./tool/CreateReference.js"));
 
-app.listen(8000);
+app.use("/news/get", require("./news/GetNews.js"));
+
+app.listen(8000, () => {
+  console.log("server is now listening htttp://localhost:8000");
+});

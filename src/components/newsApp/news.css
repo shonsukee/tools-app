@@ -5,3 +5,9 @@
 .underline {
   text-decoration: none;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  opacity: 0.2;
+}

@@ -49,6 +49,7 @@ CREATE TABLE "tool" (
     "title" TEXT NOT NULL,
     "detail" TEXT NOT NULL,
     "url" TEXT NOT NULL,
+    "ogp" TEXT NOT NULL,
 
     CONSTRAINT "tool_pkey" PRIMARY KEY ("id")
 );

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Masonry } from "@mui/lab";
 import { useLocation } from "react-router-dom";
 import GenericTemplate from "../topsidebar/GenericTemplate";
 import NewsList from "../newsApp/newsList";
 import NewsDetail from "../newsApp/newsDetail";
 import NewsSearch from "../newsApp/newsSearch";
+import { Bars } from "react-loader-spinner";
 
 function NewsPage() {
   const location = useLocation();
@@ -26,10 +26,18 @@ function NewsPage() {
       ) : (
         <div>
           <NewsSearch onSearch={handleSearch} />
-          {searchResult ? null : (
-            <Masonry columns={4} spacing={2}>
-              <NewsList />
-            </Masonry>
+          {searchResult ? (
+            <Bars
+              height="80"
+              width="80"
+              color="#"
+              ariaLabel="bars-loading"
+              wrapperStyle={{}}
+              wrapperClass="#C0C0C0"
+              visible={true}
+            />
+          ) : (
+            <NewsList />
           )}
         </div>
       )}

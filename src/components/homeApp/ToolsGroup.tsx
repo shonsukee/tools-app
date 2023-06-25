@@ -20,12 +20,12 @@ const ToolsGroup = () => {
       group_name: data.group_name,
       user_id: Number(localStorage.getItem("user_id")),
     });
+    window.location.href = "/home";
   };
 
   return (
     <Box
       component="form"
-      padding="30px"
       bgcolor="#fff"
       borderRadius="5px"
       display="flex"

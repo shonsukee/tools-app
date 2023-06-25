@@ -1,8 +1,26 @@
 .Icon-frame {
   height: 200px;
-  width: 50%;
+  width: 100%;
   display: flex;
   align-items: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0px);
+  color: black;
+}
+
+.Icon-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.First-frame {
+  height: 400px;
+  width: 100%;
+  color: #ddd;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0px);
@@ -15,9 +33,11 @@
   top: 200px;
   left: 50%;
   transform: translate(-50%, 0px);
+  color: black;
 }
 
 .App-title {
+  white-space: normal;
   text-align: center;
   font-size: large;
 }
@@ -29,6 +49,7 @@
   top: 250px;
   left: 50%;
   transform: translate(-50%, 0px);
+  color: black;
 }
 
 .App-frame {
@@ -38,9 +59,7 @@
   display: inline-block;
   background: #eee;
   margin: 20px;
-
-  color: #313131;
-  transition: 0.3s ease-in-out;
+  color: black;
   font-weight: 600;
   filter: drop-shadow(0px 2px 4px #ccc);
   border-radius: 3px;
@@ -48,4 +67,9 @@
 .App-frame:hover {
   transform: translateY(-2px);
   box-shadow: 0 15px 30px -5px rgb(0 0 0 / 15%), 0 0 5px rgb(0 0 0 / 10%);
+}
+
+.App-Phone {
+  margin: 40px auto;
+  display: flex;
 }

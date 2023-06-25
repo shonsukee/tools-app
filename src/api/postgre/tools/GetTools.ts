@@ -1,4 +1,15 @@
-const GetTools = async (data) => {
+type Tools = {
+  id: number;
+  title: string;
+  detail: string;
+  url: string;
+  ogp: string;
+};
+type User_id = {
+  user_id: number;
+};
+
+const GetTools = async (data: User_id): Promise<Tools[]> => {
   let tools = [];
   await fetch("http://localhost:8000/home/tool/get", {
     method: "POST",

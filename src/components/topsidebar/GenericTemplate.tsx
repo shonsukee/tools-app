@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { createTheme } from "@material-ui/core/styles";
 import * as colors from "@material-ui/core/colors";
@@ -18,11 +18,13 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
+import SearchTemplate from "./SearchTemplate";
 
 const drawerWidth = 240;
 
@@ -111,6 +113,9 @@ const useStyles = makeStyles((theme: Theme) =>
         width: theme.spacing(9),
       },
     },
+    drawerPaperHidden: {
+      display: "none",
+    },
     appBarSpacer: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
@@ -131,20 +136,26 @@ const useStyles = makeStyles((theme: Theme) =>
       textDecoration: "none",
       color: theme.palette.text.secondary,
     },
+    footer: {
+      padding: theme.spacing(2),
+      marginTop: "auto",
+      marginBottom: "30px",
+    },
   })
 );
 
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="/">
-        管理画面
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+// スマホの時はBottomNavi
+const useWindowSize = (): boolean => {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const updateSize = (): void => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", updateSize);
+    updateSize();
+  }, []);
+
+  return size[0] <= 500;
 };
 
 export interface GenericTemplateProps {
@@ -165,6 +176,21 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
     setOpen(false);
   };
 
+  const Copyright = () => {
+    return (
+      <div className={classes.footer}>
+        <Typography variant="body2" color="textSecondary" align="center">
+          {"Copyright © "}
+          <Link color="inherit" to="/">
+            管理画面
+          </Link>{" "}
+          {new Date().getFullYear()}
+          {"."}
+        </Typography>
+      </div>
+    );
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -181,7 +207,8 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               onClick={handleDrawerOpen}
               className={clsx(
                 classes.menuButton,
-                open && classes.menuButtonHidden
+                open && classes.menuButtonHidden,
+                useWindowSize() && classes.drawerPaperHidden
               )}
             >
               <MenuIcon />
@@ -200,7 +227,11 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
         <Drawer
           variant="permanent"
           classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+            paper: clsx(
+              classes.drawerPaper,
+              !open && classes.drawerPaperClose,
+              useWindowSize() && classes.drawerPaperHidden
+            ),
           }}
           open={open}
         >
@@ -216,7 +247,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary="トップページ" />
+                <ListItemText primary="お気に入り" />
               </ListItem>
             </Link>
             <Link to="/products" className={classes.link}>
@@ -232,7 +263,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemIcon>
                   <NewspaperIcon />
                 </ListItemIcon>
-                <ListItemText primary="ニュースページ" />
+                <ListItemText primary="ニュース" />
               </ListItem>
             </Link>
           </List>
@@ -240,13 +271,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-            <Typography
-              component="h2"
-              variant="h5"
-              color="inherit"
-              noWrap
-              className={classes.pageTitle}
-            >
+            <Typography component="h2" variant="h5" color="inherit" noWrap>
               {title}
             </Typography>
             {children}
@@ -254,6 +279,7 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
               <Copyright />
             </Box>
           </Container>
+          <SearchTemplate isPhone={useWindowSize()} />
         </main>
       </div>
     </ThemeProvider>

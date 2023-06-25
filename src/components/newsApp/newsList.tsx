@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
+import styled from "styled-components";
 import "./news.css";
+import { motion } from "framer-motion";
+import { IconContext } from "react-icons";
+import { Bars } from "react-loader-spinner";
+import GetNews from "../../api/news/GetNews";
+import clsx from "clsx";
 
 interface Article {
   title: string;
@@ -10,56 +14,94 @@ interface Article {
   url: string;
 }
 
+// スマホの時はBottomNavi
+const useWindowSize = (): boolean => {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const updateSize = (): void => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", updateSize);
+    updateSize();
+  }, []);
+
+  return size[0] <= 500;
+};
+
 function NewsList() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [load, setLoad] = useState("Loading...");
+  const isPhone = useWindowSize();
 
   useEffect(() => {
-    const apiKey = process.env.REACT_APP_NEWS_API;
-    var apiUrl = `https://gnews.io/api/v4/search?q=google&lang=ja&max=8&apikey=${apiKey}`;
-
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        setArticles(response.data.articles);
-        console.log(response.data.articles);
-      })
-      .then(() => {
-        setLoad("");
+    (async function () {
+      const news = await GetNews({
+        query: "google",
       });
+      setArticles(news);
+      console.log(news);
+      setLoad("");
+    })();
   }, []);
 
   return (
     <>
-      <p>{load}</p>
-      <Grid container rowSpacing={1} columnSpacing={{ sm: 2, md: 3, lg: 4 }}>
+      <Loading>
+        {load && (
+          <Loading>
+            <Bars
+              height="80"
+              width="80"
+              color="#"
+              ariaLabel="bars-loading"
+              wrapperStyle={{}}
+              wrapperClass="#C0C0C0"
+              visible={true}
+            />
+            <p>検索中</p>
+          </Loading>
+        )}
+      </Loading>
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{ sm: 2, md: 3, lg: 4 }}
+        style={{ justifyContent: "center" }}
+      >
         {articles.map((article, index) => (
           <Grid item sm={12} md={6} lg={3} key={index}>
-            <Link
-              to={`/news?url=${encodeURIComponent(
-                article.url
-              )}&title=${encodeURIComponent(
-                article.title
-              )}&image=${encodeURIComponent(article.image)}`}
-              className="underline"
+            <motion.div
+              className={clsx(isPhone && "App-Phone", "App-frame")}
+              whileHover={{ scale: [null, 1.13, 1.03] }}
+              transition={{ duration: 0.23 }}
             >
-              <p>{load}</p>
-              <div className="App-frame">
-                <img
-                  width="100%"
-                  height="170px"
-                  object-fit="cover"
-                  src={
-                    article.image ||
-                    "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
-                  }
-                  alt={article.title}
-                />
+              <a
+                href={`/news?url=${encodeURIComponent(
+                  article.url
+                )}&title=${encodeURIComponent(
+                  article.title
+                )}&image=${encodeURIComponent(article.image)}`}
+                key={index}
+              >
+                <div className="Icon-frame">
+                  <IconContext.Provider value={{ size: "100%" }}>
+                    <img
+                      margin-top="50px"
+                      width="100%"
+                      object-fit="cover"
+                      src={
+                        article.image ||
+                        "https://dummyimage.com/300x200/ccc/fff.png?text=No+Image"
+                      }
+                      alt={article.title}
+                    />
+                  </IconContext.Provider>
+                </div>
                 <div className="App-title-frame">
                   <p className="App-title">{article.title}</p>
                 </div>
-              </div>
-            </Link>
+              </a>
+            </motion.div>
           </Grid>
         ))}
       </Grid>
@@ -68,3 +110,11 @@ function NewsList() {
 }
 
 export default NewsList;
+
+const Loading = styled.div`
+  display: flex;
+  opacity: 0.2;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;

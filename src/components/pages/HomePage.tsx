@@ -1,32 +1,47 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import GenericTemplate from "../topsidebar/GenericTemplate";
 import AppIcon from "./appIcon/AppIcon";
 import {
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Modal,
   Select,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import ToolsTab from "../homeApp/ToolsTab";
 import GetTools from "../../api/postgre/tools/GetTools";
 import { IconContext } from "react-icons";
 import GetGroup from "../../api/postgre/tools/GetGroup";
 import SelectTools from "../../api/postgre/tools/SelectTool";
+import AddIcon from "@mui/icons-material/Add";
+import clsx from "clsx";
 
 interface Tools {
+  id: number;
   title: string;
   detail: string;
   url: string;
-  favicon: string;
+  ogp: string;
 }
 
 interface Groups {
-  id: any;
+  id: number;
   group_name: string;
 }
+// スマホの時はBottomNavi
+const useWindowSize = (): boolean => {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const updateSize = (): void => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", updateSize);
+    updateSize();
+  }, []);
+
+  return size[0] <= 500;
+};
 
 const HomePage: React.FC = () => {
   // DBからユーザ別に追加したものを取得
@@ -34,6 +49,7 @@ const HomePage: React.FC = () => {
   const [tools, setTools] = useState<Tools[]>([]);
   const [groups, setGroups] = useState<Groups[]>([]);
   const [group_id, setGroup_id] = useState();
+  const isPhone = useWindowSize();
 
   const modalStyle = {
     height: "fit-content",
@@ -43,7 +59,7 @@ const HomePage: React.FC = () => {
     display: "flex",
   };
 
-  // モーダルウィンドウの表示
+  // モーダルウィンドウの表示・非表示
   const openModal = () => {
     setIsOpen(true);
   };
@@ -51,7 +67,7 @@ const HomePage: React.FC = () => {
     setIsOpen(false);
   };
 
-  // ツールとグループの初期化
+  // toolとgroupの初期化
   useEffect(() => {
     (async function () {
       const tool = await GetTools({
@@ -77,40 +93,17 @@ const HomePage: React.FC = () => {
     })();
   }, [group_id]);
 
-  // group_idが指定されたとき
+  // group_idがModalで指定されたとき
   const handleChange = (event: any) => {
     setGroup_id(event.target.value);
   };
 
-  // faviconの取得
-  useEffect(() => {
-    let jpUrl;
-    // eslint-disable-next-line array-callback-return
-    tools.map((tool) => {
-      let index = tool.url.indexOf(".com");
-      jpUrl = tool.url.slice(0, index + 4);
-      console.log(jpUrl);
-      if (index !== -1) {
-        tool.favicon = "https://favicongrabber.com/api/grab/youtube.com";
-      } else {
-        tool.favicon = "https://google.com";
-      }
-    });
-  }, [tools]);
-
   return (
-    <GenericTemplate title="トップページ">
-      <div style={{ marginBottom: "20px" }}>
-        <Button
-          variant="outlined"
-          onClick={openModal}
-          style={{ float: "right" }}
-        >
-          ツールを追加する
-        </Button>
-        <Modal open={modalIsOpen} onClose={closeModal} style={modalStyle}>
-          <ToolsTab />
-        </Modal>
+    <GenericTemplate title="ホーム">
+      <div style={{ margin: "20px 0", position: "relative" }}>
+        {/************************************************************
+								ここに検索を追加 
+		******************************************************************/}
         <FormControl component={MenuItem}>
           <InputLabel
             id="demo-simple-select-helper-label"
@@ -121,7 +114,7 @@ const HomePage: React.FC = () => {
           <Select
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
-            value={group_id}
+            value={group_id || ""}
             label="グループ名"
             autoWidth
             style={{ width: "150px" }}
@@ -130,25 +123,59 @@ const HomePage: React.FC = () => {
             <MenuItem value="0">
               <em>None</em>
             </MenuItem>
-            {groups.map((group) => (
-              <MenuItem value={group.id}>{group.group_name}</MenuItem>
+            {groups.map((group, index) => (
+              <MenuItem key={index} value={group.id}>
+                {group.group_name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
       </div>
-      <div></div>
       <div>
-        {tools.map((tool) => (
-          <Link to={tool.url}>
-            <div className="App-frame">
+        {/* ブックマーク追加ボタン */}
+        <motion.div
+          className={clsx(isPhone && "App-Phone", "App-frame")}
+          whileHover={{ scale: [null, 1.13, 1.03] }}
+          transition={{ duration: 0.23 }}
+          onClick={openModal}
+        >
+          <div
+            className="First-frame"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <IconContext.Provider value={{ size: "100%" }}>
+              <AddIcon sx={{ fontSize: 200 }}></AddIcon>
+            </IconContext.Provider>
+          </div>
+        </motion.div>
+        <Modal open={modalIsOpen} onClose={closeModal} style={modalStyle}>
+          <ToolsTab />
+        </Modal>
+
+        {/* ブックマーク */}
+        {tools.map((tool, index) => (
+          <motion.div
+            className={clsx(isPhone && "App-Phone", "App-frame")}
+            whileHover={{ scale: [null, 1.13, 1.03] }}
+            transition={{ duration: 0.23 }}
+          >
+            <a
+              href={tool.url}
+              key={index}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="Icon-frame">
                 <IconContext.Provider value={{ size: "100%" }}>
                   <img
                     margin-top="50px"
                     width="100%"
                     object-fit="cover"
-                    src={tool.favicon}
-                    // src={tool.favicon + "/favicon.ico"}
+                    src={tool.ogp}
                     alt="gazo"
                   />
                 </IconContext.Provider>
@@ -159,11 +186,11 @@ const HomePage: React.FC = () => {
               <div className="App-text-frame">
                 <p className="App-text">{tool.detail}</p>
               </div>
-            </div>
-          </Link>
+            </a>
+          </motion.div>
         ))}
+        <AppIcon />
       </div>
-      <AppIcon />
     </GenericTemplate>
   );
 };

@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CreateUser from "../../api/postgre/user/CreateUser";
+import FindUserByEmail from "../../api/postgre/user/FindUserByEmail";
 
 const theme = createTheme();
 
@@ -27,6 +28,8 @@ export default function SignUp() {
       password: data.get("password"),
     });
     console.log(data);
+    FindUserByEmail(data.get("email"));
+    window.location.href = "/home";
   };
 
   return (

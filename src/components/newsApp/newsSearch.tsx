@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@material-ui/core/";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Grid } from "@mui/material";
+import GetNews from "../../api/news/GetNews";
 
 interface Article {
   title: string;
@@ -22,9 +22,6 @@ const SearchTextField = ({ onSearch }) => {
     input.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         const enteredText = input.value;
-        const apiKey = process.env.REACT_APP_NEWS_API;
-        let apiUrl = `https://gnews.io/api/v4/search?lang=ja&country=ja&max=8&apikey=${apiKey}&q=`;
-
         const errorArticle = {
           title: "No matching news",
           image: "",
@@ -41,35 +38,22 @@ const SearchTextField = ({ onSearch }) => {
         if (searchTexts === null) {
           setArticles([errorArticle]);
         } else {
-          apiUrl += searchTexts;
-          axios
-            .get(apiUrl)
-            .then((response) => {
-              const articles = response.data.articles; // レスポンスから記事データを取得
-              // レスポンスが配列であることを確認してから処理を行う
-              if (Array.isArray(articles)) {
-                setArticles(articles);
-                setFlag(true);
-              } else {
-                setArticles([errorArticle]);
-              }
-            })
-
-            .then(() => {
-              setLoad("");
-            })
-            .catch((error) => {
-              console.log(error);
-              setArticles([errorArticle]);
+          (async function () {
+            const news = await GetNews({
+              query: "google",
             });
-          onSearch(true);
-        }
-        console.log(articles.length);
-        console.log(articles);
-        if (articles.length !== 0) {
-          setFlag(true);
-        } else {
-          setFlag(false);
+            setArticles(news);
+            console.log(news);
+            setLoad("");
+            setFlag(true);
+          })();
+          console.log(articles.length);
+          console.log(articles);
+          if (articles.length !== 0) {
+            setFlag(true);
+          } else {
+            setFlag(false);
+          }
         }
       }
     });
@@ -83,7 +67,6 @@ const SearchTextField = ({ onSearch }) => {
         color="secondary"
         variant="outlined"
         label="enter keywords"
-        // onChange={(e) => setKeyword(e.target.value)}
       />
       <div>{!flag && articles.map((article) => article.title)}</div>
       {flag && (

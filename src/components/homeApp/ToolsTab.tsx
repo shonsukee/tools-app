@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import ToolsList from "./ToolsList";
 import ToolsGroup from "./ToolsGroup";
+import RefGroup from "./RefGroup";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -57,17 +58,7 @@ export default function SimpleTabs() {
   };
 
   return (
-    <Box
-      component="div"
-      marginTop="50px"
-      padding="30px"
-      bgcolor="#fff"
-      borderRadius="5px"
-      width="80%"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-    >
+    <div>
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs
@@ -75,17 +66,21 @@ export default function SimpleTabs() {
             onChange={handleChange}
             aria-label="simple tabs example"
           >
-            <Tab label="ツールの作成" {...a11yProps(0)} />
+            <Tab label="リンクの作成" {...a11yProps(0)} />
             <Tab label="グループ作成" {...a11yProps(1)} />
+            <Tab label="グループ関連" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <ToolsList></ToolsList>
+          <ToolsList />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ToolsGroup></ToolsGroup>
+          <ToolsGroup />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <RefGroup />
         </TabPanel>
       </div>
-    </Box>
+    </div>
   );
 }
