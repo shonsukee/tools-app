@@ -47,8 +47,7 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "prestart": "docker-compose up -d",
-    "start": "react-scripts start ",
+    "start": "react-scripts start && npm run serve",
     "dev": "serve -s build",
     "build": "serve -s build",
     "test": "react-scripts test",
