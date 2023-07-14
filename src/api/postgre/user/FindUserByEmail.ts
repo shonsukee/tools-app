@@ -2,7 +2,7 @@ import { UserForm } from "../../../components/Login/types";
 
 const FindUserByEmail = async (email): Promise<UserForm[]> => {
   let user = [];
-  await fetch("https://toolapp-back.herokuapp.com/user/find", {
+  await fetch("http://localhost:8000/user/find", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

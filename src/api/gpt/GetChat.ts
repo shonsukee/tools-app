@@ -1,7 +1,7 @@
-const GetNews = async (data) => {
-  let news = [];
-
-  await fetch("http://localhost:8000/news/get", {
+const GetChat = async (data) => {
+  let query;
+  console.log(data);
+  await fetch("http://localhost:8000/gpt/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,13 +11,13 @@ const GetNews = async (data) => {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
-      news = data.articles;
+      query = data;
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 
-  return news;
+  return query;
 };
 
-export default GetNews;
+export default GetChat;

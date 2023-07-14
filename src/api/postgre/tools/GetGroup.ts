@@ -1,7 +1,7 @@
 const GetGroup = async (data) => {
   let groups = [];
 
-  await fetch("https://toolapp-back.herokuapp.com/home/group/get", {
+  await fetch("http://localhost:8000/home/group/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

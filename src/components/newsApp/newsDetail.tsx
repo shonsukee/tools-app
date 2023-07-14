@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { chat } from "../../api/gpt/chat";
+import GetChat from "../../api/gpt/GetChat";
 import styled from "styled-components";
 import { Bars } from "react-loader-spinner";
 
@@ -12,13 +12,13 @@ const NewsSearch = ({ title, image }: { title: string; image: string }) => {
   const articleUrl = params.get("url");
 
   const [message, setMessage] = useState(""); // メッセージの状態管理用
-  const [answer, setAnswer] = useState(""); // 回答の状態管理用
-  const [load, setLoad] = useState(false);
+  const [answer, setAnswer] = useState<string>(""); // 回答の状態管理用
+  const [load, setLoad] = useState(true);
 
   // ニュースを要約するプロンプトを送信
   useEffect(() => {
     (async function () {
-      setMessage(`「${articleUrl}」このURLのほんぶんをようやくして`);
+      setMessage(`${title}について教えて`);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -26,29 +26,27 @@ const NewsSearch = ({ title, image }: { title: string; image: string }) => {
   // メッセージがセットされたらChatGPTに投げる
   useEffect(() => {
     const fetchData = async () => {
-      const data = await chat(message);
-      setAnswer(data);
-      localStorage.setItem("sentence" + title, data);
-    };
-
-    if (message !== "") {
-      fetchData();
-    } else {
-      if (localStorage.getItem("sentence" + title) !== null) {
-        const storedSentence = localStorage.getItem("sentence" + title);
-        if (storedSentence !== null) {
-          setAnswer(storedSentence);
+      try {
+        const data = await GetChat({
+          prompt: message,
+        });
+        if (data !== "No prompt provided") {
+          setLoad(false);
+          setAnswer(data);
         }
+      } catch (error) {
+        console.error("Error:", error);
       }
-    }
-  }, [message, title]);
+    };
+    fetchData();
+  }, [message]);
 
-  // an
-  useEffect(() => {
-    if (answer !== "") {
-      setLoad(true);
-    }
-  }, [answer]);
+  // ローディング
+  //   useEffect(() => {
+  //     if (answer !== "") {
+  //       setLoad(true);
+  //     }
+  //   }, [answer]);
 
   // チャットフォームの表示
   return (

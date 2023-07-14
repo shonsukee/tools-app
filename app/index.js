@@ -22,4 +22,8 @@ app.use("/home/ref/create", require("./tool/CreateReference.js"));
 
 app.use("/news/get", require("./news/GetNews.js"));
 
-app.listen(8000);
+app.use("/gpt/chat", require("./gpt/GetChat.js"));
+
+app.listen(8000, () => {
+  console.log("listening 8000 port");
+});

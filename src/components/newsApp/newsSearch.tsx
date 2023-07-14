@@ -71,6 +71,12 @@ const SearchTextField = ({ onSearch }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (flag) {
+      onSearch(articles);
+    }
+  }, [articles, flag, onSearch]);
+
   return (
     <>
       <TextField

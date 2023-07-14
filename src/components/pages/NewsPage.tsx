@@ -19,7 +19,7 @@ function NewsPage() {
   const handleSearch = (result) => {
     setSearchResult(result);
     setIsSearch(true);
-    console.log(isSearch);
+    console.log("isSearch");
   };
 
   return (
@@ -29,20 +29,18 @@ function NewsPage() {
       ) : (
         <div>
           <NewsSearch onSearch={handleSearch} />
-          {isSearch ? (
-            searchResult ? (
-              <Bars
-                height="80"
-                width="80"
-                color="#"
-                ariaLabel="bars-loading"
-                wrapperClass="#C0C0C0"
-                visible={true}
-              />
-            ) : (
-              <NewsList />
-            )
-          ) : null}
+          {isSearch ? null : searchResult ? (
+            <Bars
+              height="80"
+              width="80"
+              color="#"
+              ariaLabel="bars-loading"
+              wrapperClass="#C0C0C0"
+              visible={true}
+            />
+          ) : (
+            <NewsList />
+          )}
         </div>
       )}
     </GenericTemplate>

@@ -11,7 +11,7 @@ type User_id = {
 
 const GetTools = async (data: User_id): Promise<Tools[]> => {
   let tools = [];
-  await fetch("https://toolapp-back.herokuapp.com/home/tool/get", {
+  await fetch("http://localhost:8000/home/tool/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

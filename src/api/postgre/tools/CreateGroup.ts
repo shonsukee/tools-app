@@ -1,5 +1,5 @@
 const CreateGroup = (data) => {
-  fetch("https://toolapp-back.herokuapp.com/home/group/create", {
+  fetch("http://localhost:8000/home/group/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
