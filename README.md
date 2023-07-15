@@ -1,22 +1,25 @@
-node user.js 
-今のexpress起動コマンド
+# tools-app
+tools-appは，ブックマーク，レシピ紹介，ニュースなどの多機能を搭載したアプリケーションです．
 
+# ローカル環境の実行コマンド
+・バックエンド起動コマンド
 
-
-アプリ全体を使用するためのコマンド
-
-Docker アプリの起動
-
-Dockerの起動コマンド(Docker-compose.yml内に処理したい内容を記載)
-docker-compose up -d
-
-expressが起動
 node app/index.js
 
 
+・アプリ全体を使用するためのコマンド
+
+npm run start 
 
 
-terminalで
-yarn run dev
-出来なかったらターミナルで環境変数設
+・Docker アプリの起動
+docker-compose up -d
+
+
+・ビルド後に実行
+
+yarn run build
+
+http://localhost:3000/
+
 NODE_OPTIONS=--openssl-legacy-provider
