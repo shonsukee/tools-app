@@ -86,7 +86,7 @@
     "webpack-cli": "4",
     "webpack-node-externals": "^1.7.2"
   },
-  "description": "node user.js  今のexpress起動コマンド",
+  "description": "node app/index.js  今のexpress起動コマンド",
   "main": "webpack.config.js",
   "keywords": [],
   "author": "",
