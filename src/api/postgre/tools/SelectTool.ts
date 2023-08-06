@@ -1,7 +1,7 @@
 const SelectTool = async (data) => {
   let tools = [];
 
-  await fetch("http://localhost:8000/home/tool/select", {
+  await fetch(process.env.REACT_APP_API_URL + "/home/tool/select", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

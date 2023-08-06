@@ -2,7 +2,7 @@ import { UserForm } from "../../../components/Login/types";
 
 const FindUserByEmail = async (email): Promise<UserForm[]> => {
   let user = [];
-  await fetch("http://localhost:8000/user/find", {
+  await fetch(process.env.REACT_APP_API_URL + "/user/find", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

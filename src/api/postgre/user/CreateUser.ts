@@ -1,5 +1,5 @@
 const CreateUser = (data) => {
-  fetch("http://localhost:8000/user/create", {
+  fetch(process.env.REACT_APP_API_URL + "/user/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

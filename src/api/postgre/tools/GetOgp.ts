@@ -1,7 +1,7 @@
 const GetOgp = async (data) => {
   let ogp = [];
 
-  await fetch("http://localhost:8000/home/ogp/get", {
+  await fetch(process.env.REACT_APP_API_URL + "/home/ogp/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,9 +17,6 @@ const GetOgp = async (data) => {
     .catch((error) => {
       console.error("Error:", error);
     });
-
-  console.log("======ts========");
-  console.log(ogp.length);
 
   return ogp;
 };

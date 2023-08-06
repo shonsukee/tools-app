@@ -41,13 +41,6 @@ const NewsSearch = ({ title, image }: { title: string; image: string }) => {
     fetchData();
   }, [message]);
 
-  // ローディング
-  //   useEffect(() => {
-  //     if (answer !== "") {
-  //       setLoad(true);
-  //     }
-  //   }, [answer]);
-
   // チャットフォームの表示
   return (
     <div>

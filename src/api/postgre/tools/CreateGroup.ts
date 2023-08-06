@@ -1,5 +1,5 @@
 const CreateGroup = (data) => {
-  fetch("http://localhost:8000/home/group/create", {
+  fetch(process.env.REACT_APP_API_URL + "/home/group/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

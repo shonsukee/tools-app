@@ -11,7 +11,7 @@ type User_id = {
 
 const GetTools = async (data: User_id): Promise<Tools[]> => {
   let tools = [];
-  await fetch("http://localhost:8000/home/tool/get", {
+  await fetch(process.env.REACT_APP_API_URL + "/home/tool/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

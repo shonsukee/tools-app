@@ -1,5 +1,5 @@
 const CreateTools = (data) => {
-  fetch("http://localhost:8000/home/tool/create", {
+  fetch(process.env.REACT_APP_API_URL + "/home/tool/create", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

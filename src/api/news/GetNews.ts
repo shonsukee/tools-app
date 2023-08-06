@@ -1,7 +1,7 @@
 const GetNews = async (data) => {
   let news = [];
 
-  await fetch("http://localhost:8000/news/get", {
+  await fetch(process.env.REACT_APP_API_URL + "/news/get", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

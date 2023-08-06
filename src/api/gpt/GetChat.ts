@@ -1,7 +1,7 @@
 const GetChat = async (data) => {
   let query;
   console.log(data);
-  await fetch("http://localhost:8000/gpt/chat", {
+  await fetch(process.env.REACT_APP_API_URL + "/gpt/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
