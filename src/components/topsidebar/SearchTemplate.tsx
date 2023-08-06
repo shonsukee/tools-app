@@ -30,11 +30,13 @@ export default function SearchTemplate({ isPhone }) {
           <BottomNavigationAction
             label="Bookmark"
             icon={<BookmarkIcon />}
+            value={0}
             onClick={() => handleNavigation("/home")}
           />
           <BottomNavigationAction
             label="News"
             icon={<NewspaperIcon />}
+            value={2}
             onClick={() => handleNavigation("/news")}
           />
         </BottomNavigation>

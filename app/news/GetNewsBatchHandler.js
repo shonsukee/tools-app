@@ -48,25 +48,3 @@ function scheduleRemoveCache(query) {
   // 1日したらキャッシュを削除
   setTimeout(() => deleteCache(query), 24 * 60 * 60 * 1000);
 }
-
-// const redis = require("redis");
-
-// const keys = require("../keys");
-
-// let client = redis.createClient({
-//   host: keys.redisHost,
-//   port: keys.redisPort,
-// });
-// function GetNewsBatchHandler(req, res, next) {
-//   client.post("posts", (err, reply) => {
-//     if (err) res.status(500).send("Something went wrong");
-//     if (reply !== null) {
-//       res.send(reply);
-//       console.log("from redis");
-//     } else {
-//       next();
-//     }
-//   });
-// }
-
-// module.exports = GetNewsBatchHandler;

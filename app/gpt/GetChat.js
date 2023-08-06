@@ -37,7 +37,6 @@ app.post("/", async (req, res) => {
     );
 
     console.log(response.data.choices[0].message.content);
-    // クライアントに回答を返す
     return res.json(response.data.choices[0].message.content);
   } catch (error) {
     return res.json(error);
