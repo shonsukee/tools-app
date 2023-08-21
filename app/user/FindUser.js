@@ -11,8 +11,6 @@ app.post("/", async (req, res) => {
   //条件に合うデータをすべて見つける
   try {
     const { email } = req.body;
-    console.log(email);
-    console.log(typeof email);
     const post = await prisma.user.findUnique({
       where: {
         email: email,
@@ -21,7 +19,7 @@ app.post("/", async (req, res) => {
     return res.json(post);
     //条件に合うものがないとき
   } catch (err) {
-    return res.json(err);
+    return res.json("Internal Server Error");
   }
 });
 

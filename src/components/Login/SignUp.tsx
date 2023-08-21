@@ -28,7 +28,6 @@ export default function SignUp() {
       password: data.get("password"),
     });
     await FindUserByEmail(data.get("email"));
-    console.log("2");
     window.location.href = "/home";
   };
 
