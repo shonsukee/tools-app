@@ -42,7 +42,7 @@ const ToolsList = () => {
     else {
       ogps = getOgps;
     }
-    CreateTools({
+    await CreateTools({
       user_id: Number(localStorage.getItem("user_id")),
       title: data.title,
       detail: data.detail,

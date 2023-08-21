@@ -59,7 +59,7 @@ const RefGroup = () => {
   };
 
   const onSubmit = async () => {
-    check_tools.map((check_tool) =>
+    await check_tools.map((check_tool) =>
       CreateRef({
         group_id: group_id,
         tool_id: parseInt(check_tool, 10),
