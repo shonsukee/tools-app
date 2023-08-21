@@ -47,6 +47,6 @@ app.use("/news/get", require("./news/GetNews.js"));
 
 app.use("/gpt/chat", require("./news/gpt/GetChat.js"));
 
-app.listen(8000, () => {
-  console.log("listening 8000 port");
+app.listen(8001, () => {
+  console.log("listening 8001 port");
 });
