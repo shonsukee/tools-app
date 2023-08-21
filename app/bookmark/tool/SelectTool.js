@@ -20,6 +20,9 @@ app.post("/", async (req, res) => {
         where: {
           user_id: user_id,
         },
+        orderBy: {
+          id: "desc",
+        },
       });
     } else {
       const reference = await prisma.reference.findMany({

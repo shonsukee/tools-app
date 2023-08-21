@@ -18,6 +18,9 @@ app.post("/", async (req, res) => {
       where: {
         user_id: user_id,
       },
+      orderBy: {
+        id: "desc",
+      },
     });
     return res.json(tool);
     //条件に合うものがないとき

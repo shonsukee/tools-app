@@ -87,7 +87,12 @@ const SearchTextField = ({ onSearch }) => {
       />
       <div>{!flag && articles.map((article) => article.title)}</div>
       {flag && (
-        <Grid container rowSpacing={1} columnSpacing={{ sm: 2, md: 3, lg: 4 }}>
+        <Grid
+          container
+          rowSpacing={1}
+          columnSpacing={{ sm: 2, md: 3, lg: 4 }}
+          style={{ justifyContent: "center" }}
+        >
           {articles.map((article, index) => (
             <Grid item sm={12} md={6} lg={3} key={index}>
               <motion.div

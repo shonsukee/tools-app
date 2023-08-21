@@ -37,8 +37,9 @@ const ToolsList = () => {
     if (getOgps.length === 0) {
       ogps =
         "https://3.bp.blogspot.com/-Uzi2iyvRCBM/W8BOOLU6wsI/AAAAAAABPW8/tud6RvPUYfwvyVSyFa8N5idm6890Npw-ACLcBGAs/s800/computer_bar5_load.png";
-      //OGPがあるとき
-    } else {
+    }
+    //OGPがあるとき
+    else {
       ogps = getOgps;
     }
     CreateTools({

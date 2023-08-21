@@ -1,7 +1,5 @@
 const GetGroup = async (data) => {
   let reference = [];
-
-  console.log(data);
   await fetch(process.env.REACT_APP_API_URL + "/home/ref/create", {
     method: "POST",
     headers: {

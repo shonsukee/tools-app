@@ -1,0 +1,12 @@
+.ingredient-icon-list{
+    height: 80vh;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* .ingredient-container{
+    background-image: url("../../../../public/26534153_s.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+} */

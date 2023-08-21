@@ -5,6 +5,9 @@ import HomePage from "./components/pages/HomePage";
 import SignUp from "./components/Login/SignUp";
 import SignIn from "./components/Login/SignIn";
 import NewsPage from "./components/pages/NewsPage";
+// import IngredientListPage from "./components/cookApp/ingredientPage/IngredientList";
+// import InventoryListPage from "./components/cookApp/inventoryPage/InventoryList";
+// import CartListPage from "./components/cookApp/cartPage/CartList";
 
 const App: React.FC = () => {
   return (

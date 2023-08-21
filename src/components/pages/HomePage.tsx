@@ -16,6 +16,8 @@ import GetGroup from "../../api/postgre/tools/GetGroup";
 import SelectTools from "../../api/postgre/tools/SelectTool";
 import AddIcon from "@mui/icons-material/Add";
 import clsx from "clsx";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ToolsDelTab from "../homeApp/ToolsDelTab";
 
 interface Tools {
   id: number;
@@ -46,6 +48,8 @@ const useWindowSize = (): boolean => {
 const HomePage: React.FC = () => {
   // DBからユーザ別に追加したものを取得
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalDelOpen, setModalDelOpen] = React.useState(false);
+  const [isLink, setIsLink] = React.useState(false);
   const [tools, setTools] = useState<Tools[]>([]);
   const [groups, setGroups] = useState<Groups[]>([]);
   const [group_id, setGroup_id] = useState();
@@ -60,12 +64,28 @@ const HomePage: React.FC = () => {
   };
 
   // モーダルウィンドウの表示・非表示
-  const openModal = () => {
-    setIsOpen(true);
+  const openModal = (num: number) => {
+    if (num === 1) {
+      setModalDelOpen(true);
+    } else {
+      setIsOpen(true);
+    }
   };
-  const closeModal = () => {
-    setIsOpen(false);
+  const closeModal = (num: number) => {
+    if (num === 1) {
+      setModalDelOpen(false);
+    } else {
+      setIsOpen(false);
+    }
   };
+
+  useEffect(() => {
+    if (tools.length > 0) {
+      setIsLink(true);
+    } else {
+      setIsLink(false);
+    }
+  }, [tools]);
 
   // toolとgroupの初期化
   useEffect(() => {
@@ -100,10 +120,14 @@ const HomePage: React.FC = () => {
 
   return (
     <GenericTemplate title="ホーム">
-      <div style={{ margin: "20px 0", position: "relative" }}>
-        {/************************************************************
-								ここに検索を追加 
-		******************************************************************/}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
         <FormControl component={MenuItem}>
           <InputLabel
             id="demo-simple-select-helper-label"
@@ -118,7 +142,7 @@ const HomePage: React.FC = () => {
             label="グループ名"
             autoWidth
             style={{ width: "150px" }}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
           >
             <MenuItem value="0">
               <em>None</em>
@@ -130,14 +154,35 @@ const HomePage: React.FC = () => {
             ))}
           </Select>
         </FormControl>
+        {isLink && (
+          <button
+            onClick={() => openModal(1)}
+            style={{
+              border: "none",
+              background: "none",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            <DeleteIcon fontSize="large" />
+          </button>
+        )}
       </div>
+      <Modal
+        open={modalDelOpen}
+        onClose={() => closeModal(1)}
+        style={modalStyle}
+      >
+        <ToolsDelTab />
+      </Modal>
+
       <div>
         {/* ブックマーク追加ボタン */}
         <motion.div
           className={clsx(isPhone && "App-Phone", "App-frame")}
           whileHover={{ scale: [null, 1.13, 1.03] }}
           transition={{ duration: 0.23 }}
-          onClick={openModal}
+          onClick={() => openModal(0)}
         >
           <div
             className="First-frame"
@@ -152,7 +197,11 @@ const HomePage: React.FC = () => {
             </IconContext.Provider>
           </div>
         </motion.div>
-        <Modal open={modalIsOpen} onClose={closeModal} style={modalStyle}>
+        <Modal
+          open={modalIsOpen}
+          onClose={() => closeModal(0)}
+          style={modalStyle}
+        >
           <ToolsTab />
         </Modal>
 
