@@ -18,17 +18,17 @@ import FindUserByEmail from "../../api/postgre/user/FindUserByEmail";
 const theme = createTheme();
 
 export default function SignUp() {
-  //サインアップ時の処理ｋ
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //サインアップ時の処理
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    CreateUser({
+    await CreateUser({
       name: data.get("firstName"),
       email: data.get("email"),
       password: data.get("password"),
     });
-    console.log(data);
-    FindUserByEmail(data.get("email"));
+    await FindUserByEmail(data.get("email"));
+    console.log("2");
     window.location.href = "/home";
   };
 
