@@ -10,7 +10,6 @@ app.use(express.json()); //送られてきたデータがjson形式と認識さ�
 app.post("/", async (req, res) => {
   try {
     const { user_id, group_name } = req.body; // postmanで挿入
-    console.log(user_id, group_name);
     //schema.prismaのPostsから取得
     const group = await prisma.group.create({
       data: {
