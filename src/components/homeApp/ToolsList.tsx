@@ -49,7 +49,7 @@ const ToolsList = () => {
       url: data.url,
       ogp: ogps,
     });
-    // window.location.href = "/home";
+    window.location.href = "/home";
   };
   return (
     <Box
