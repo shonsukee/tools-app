@@ -19,7 +19,6 @@ function NewsPage() {
   const handleSearch = (result) => {
     setSearchResult(result);
     setIsSearch(true);
-    console.log("isSearch");
   };
 
   return (

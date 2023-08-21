@@ -39,7 +39,6 @@ function NewsList() {
         query: "google",
       });
       setArticles(news);
-      console.log(news);
       setLoad("");
     })();
   }, []);

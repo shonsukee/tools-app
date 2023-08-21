@@ -1,7 +1,5 @@
 const GetGroup = async (data) => {
   let groups = [];
-  console.log(process.env.REACT_APP_API_URL);
-
   await fetch(process.env.REACT_APP_API_URL + "/home/group/get", {
     method: "POST",
     headers: {

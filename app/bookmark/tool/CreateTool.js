@@ -11,8 +11,6 @@ app.post("/", async (req, res) => {
   try {
     const { user_id, title, detail, url, ogp } = req.body; // postmanで挿入
     //schema.prismaのPostsから取得
-    console.log(ogp);
-    console.log(typeof ogp);
     const tool = await prisma.tool.create({
       data: {
         user_id: user_id,

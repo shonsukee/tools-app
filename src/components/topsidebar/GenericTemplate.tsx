@@ -15,6 +15,7 @@ import Divider from "@material-ui/core/Divider";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -248,6 +249,14 @@ const GenericTemplate: React.FC<GenericTemplateProps> = ({
                 <ListItemText primary="Bookmark" />
               </ListItem>
             </Link>
+            {/* <Link to="/products" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="商品ページ" />
+              </ListItem>
+            </Link> */}
             <Link to="/news" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
