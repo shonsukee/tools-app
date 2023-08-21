@@ -16,7 +16,7 @@ const ToolsGroup = () => {
   });
 
   const onSubmit = async (data: Tools) => {
-    CreateGroup({
+    await CreateGroup({
       group_name: data.group_name,
       user_id: Number(localStorage.getItem("user_id")),
     });
