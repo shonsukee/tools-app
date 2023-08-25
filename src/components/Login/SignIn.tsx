@@ -42,6 +42,7 @@ export default function SignIn() {
     const SuccessData = await FindUserByEmail(data.get("email"));
     console.log(SuccessData["password"]);
     if (SuccessData["password"] === data.get("password")) {
+      setTimeout(() => {}, 2000);
       window.location.href = "/home";
     }
   };
