@@ -20,7 +20,8 @@ const ToolsGroup = () => {
       group_name: data.group_name,
       user_id: Number(localStorage.getItem("user_id")),
     });
-    // window.location.href = "/home";
+    setTimeout(() => {}, 2000);
+    window.location.href = "/home";
   };
 
   return (

@@ -43,6 +43,7 @@ const DelTool = () => {
         id: Number(check_tool),
       });
     });
+    setTimeout(() => {}, 2000);
     window.location.href = "/home";
   };
 

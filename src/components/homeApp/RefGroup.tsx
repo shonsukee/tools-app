@@ -65,7 +65,8 @@ const RefGroup = () => {
         tool_id: parseInt(check_tool, 10),
       })
     );
-    // window.location.href = "/home";
+    setTimeout(() => {}, 2000);
+    window.location.href = "/home";
   };
 
   //

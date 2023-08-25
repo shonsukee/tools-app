@@ -49,6 +49,7 @@ const ToolsList = () => {
       url: data.url,
       ogp: ogps,
     });
+    setTimeout(() => {}, 2000);
     window.location.href = "/home";
   };
   return (
